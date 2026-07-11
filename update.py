@@ -212,10 +212,13 @@ def refresh(data, dry_run):
             if live.get("url") and not is_group_link(live["url"]) and is_group_link(c.get("link")):
                 c["link"] = live["url"]
             c.pop("unverified", None)
-        elif not dry_run:
-            # la API no encontro la carta: probable entrada fantasma o mal etiquetada
+        elif not dry_run and api_key:
+            # habia clave pero la API no encontro la carta: entrada fantasma o mal etiquetada
             c["unverified"] = True
             print(f"  ? sin match en API: revisa '{c['name']}' ({c.get('set','')})")
+        else:
+            # sin clave (o dry-run) no se puede verificar: no marcamos REVISAR
+            c.pop("unverified", None)
         # afinar el enlace: de grupo/set -> busqueda del ejemplar concreto (respeta directos)
         c["link"] = best_link(c["name"], c.get("query"), c.get("set"), c.get("link"))
         m = metrics(c, data["config"])
@@ -243,6 +246,32 @@ def estimate_fee(psa10):
     if psa10 < 499: return 25
     if psa10 < 999: return 33
     return 50
+
+
+# Multiplo PSA10/raw por juego+rareza. Solo se usa para ESTIMAR el PSA10 cuando la
+# fuente de precios no lo da (tier gratis). Es una aproximacion tosca por rareza:
+# sirve para DESCUBRIR candidatas, no para fiarte del EV. Verifica el 10 real antes.
+PSA10_MULT_DEFAULTS = {
+    "pokemon_jp": {"SAR": 2.5, "SIR": 2.5, "AR": 3.2, "SR": 2.2, "UR": 2.2, "_": 2.3},
+    "pokemon_en": {"SIR": 2.2, "SAR": 2.2, "AR": 2.6, "SR": 2.0, "_": 2.0},
+    "onepiece":   {"MR": 5.0, "SEC": 4.5, "SP": 4.0, "SAA": 4.5, "MANGA": 5.0, "L": 2.5, "SR": 2.6, "_": 3.0},
+    "magic":      {"MYTHIC": 2.0, "RARE": 2.0, "_": 2.0},
+    "yugioh":     {"GHOST": 3.5, "SECRET": 3.0, "ULTRA": 2.3, "_": 2.6},
+    "lorcana":    {"ENCHANTED": 2.6, "LEGENDARY": 2.4, "_": 2.3},
+    "digimon":    {"SEC": 3.2, "SR": 2.6, "_": 2.7},
+}
+
+
+def estimate_psa10(game, rarity, raw):
+    """Estima el PSA10 a partir del raw real cuando la API no da el graded (tier gratis)."""
+    table = PSA10_MULT_DEFAULTS.get(game, {"_": 2.3})
+    mult = table.get("_", 2.3)
+    if rarity:
+        key = str(rarity).upper()
+        for k, v in table.items():
+            if k != "_" and k in key:
+                mult = v; break
+    return round(raw * mult, 2)
 
 
 MOCK_SET = [
@@ -334,9 +363,16 @@ def scan(data, api_key, autoadd, mock=False):
         print(f"  escaneando {gk} / {code} ...")
         for it in fetch_set(gk, code, api_key, max_pages, mock=mock):
             raw, psa10 = it["raw"], it["psa10"]
-            if not raw or not psa10:
+            if not raw:
                 continue
             if raw < min_raw or raw > max_raw:
+                continue
+            # tier gratis no da PSA10: lo estimamos por rareza (a verificar)
+            psa10_est = False
+            if not psa10:
+                psa10 = estimate_psa10(gk, it["rarity"], raw)
+                psa10_est = True
+            if not psa10:
                 continue
             mult = psa10 / raw
             if mult < min_mult:
@@ -355,6 +391,7 @@ def scan(data, api_key, autoadd, mock=False):
                 "set": it["set"] or code, "rarity": it["rarity"], "code": it["code"],
                 "raw": round(raw, 2), "psa10": round(psa10, 2), "gap": round(psa10 - raw),
                 "mult": round(mult, 1), "gem_est": gem, "fee": fee, "ev": em["ev"],
+                "psa10_est": psa10_est,
                 "roi": em["roi"], "gem_be": em["gem_be"], "margin": em["margin"],
                 "image_url": it["image_url"],
                 "link": it["url"] if (it.get("url") and not is_group_link(it["url"]))
@@ -390,7 +427,9 @@ def scan(data, api_key, autoadd, mock=False):
                 "query": c["name"], "gem_rate": c["gem_est"], "grading_fee": c["fee"],
                 "seed_raw": c["raw"], "seed_psa10": c["psa10"], "image_url": c["image_url"],
                 "link": c["link"], "source": "scan", "pending_review": True,
-                "note": f"[scan] {c['rarity'] or ''} - revisa gem_rate (estimado).", "history": [],
+                "note": (f"[scan] {c['rarity'] or ''} - revisa gem_rate"
+                         + (" y PSA10 (ambos estimados)." if c.get("psa10_est") else " (estimado).")),
+                "history": [],
             })
             existing.add(norm(c["name"])); added += 1
         if added:
@@ -534,7 +573,7 @@ def card_html(c, m, i=None, cand=False, trend=None):
       <div class="pill raw"><div class="l">Raw</div><div class="v">{money(m["raw"])}</div></div>
       <div class="pill psa"><div class="l">PSA 10</div><div class="v">{money(m["psa10"])}</div></div>
     </div>
-    <div class="tags">{marg_html}<span class="tag">{m["mult"]}x</span><span class="tag">gem {int(gem*100)}%{' est' if cand else ''}</span><span class="tag">fee {money(fee)}</span>{trend_html(m, trend)}</div>
+    <div class="tags">{marg_html}<span class="tag">{m["mult"]}x</span><span class="tag">gem {int(gem*100)}%{' est' if cand else ''}</span>{'<span class="tag bad">PSA10 est</span>' if c.get("psa10_est") else ''}<span class="tag">fee {money(fee)}</span>{trend_html(m, trend)}</div>
     <div class="note">{note}</div>
     <a class="go" href="{link}" target="_blank">Ver ficha / foto -></a>
   </div>
@@ -594,6 +633,34 @@ FILTER_JS = """<script>
 </script>"""
 
 
+def candidates_section(limit=8):
+    """Bloque 'Novedades del scan' para la galeria principal: candidatas frescas primero."""
+    try:
+        with open(CAND_JSON, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return ''
+    cands = data.get("candidates") or []
+    if not cands:
+        return ''
+    # las nuevas de hoy primero, luego por EV
+    cands = sorted(cands, key=lambda c: (not c.get("is_new"), -c.get("ev", 0)))[:limit]
+    n_new = sum(1 for c in cands if c.get("is_new"))
+    gen = htmlmod.escape(str(data.get("generated", "")))
+    head = (f'<h2>🔥 Novedades del scan{f" · {n_new} nuevas hoy" if n_new else ""}</h2>'
+            f'<div class="disc">Cartas recien descubiertas escaneando sets ({gen}). '
+            f'gem_rate y (en tier gratis) <b>PSA10 son ESTIMADOS</b>: son pistas para investigar, '
+            f'confirma el 10 real en GemRate / ventas cerradas antes de comprar. '
+            f'Revisa la lista completa en <a class="go" href="candidates.html" target="_blank">candidates.html →</a></div>')
+    grid = ['<div class="grid">']
+    for i, c in enumerate(cands, 1):
+        m = {"raw": c["raw"], "psa10": c["psa10"], "gap": c["gap"], "mult": c["mult"],
+             "ev": c["ev"], "roi": c.get("roi", 0), "margin": c.get("margin"), "buy": False}
+        grid.append(card_html(c, m, i=i, cand=True))
+    grid.append('</div>')
+    return head + "\n".join(grid)
+
+
 def render(data):
     cards = sorted(data["cards"], key=lambda c: c["_m"]["ev"], reverse=True)
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -624,11 +691,14 @@ def render(data):
     parts.append('<div class="disc">EV = beneficio neto esperado = gem_rate*PSA10 + (1-gem_rate)*(recuperacion*raw) - raw - fee. '
                  'ROI = EV / (raw+fee). El <b>margen</b> es cuantos puntos puede bajar tu gem real antes de perder dinero (break-even). '
                  'La flecha es el cambio de EV desde ayer. Tasas de gem aproximadas: verifica variante y comp antes de comprar. No es asesoramiento financiero.</div>')
+    # Novedades del scan: candidatas descubiertas hoy (arriba del todo, lo primero que ves)
+    parts.append(candidates_section())
     sym = DISPLAY["symbol"]
     toolbar = (TOOLBAR.replace("__GAMECHIPS__", chips)
                .replace("__B1__", f'&lt; {sym}{BANDS["lo"]}')
                .replace("__B2__", f'{sym}{BANDS["lo"]}–{BANDS["hi"]}')
                .replace("__B3__", f'&gt; {sym}{BANDS["hi"]}'))
+    parts.append('<h2>Tu watchlist</h2>')
     parts.append(toolbar)
     parts.append('<div class="grid" id="grid">')
     for i, c in enumerate(cards, 1):

@@ -35,12 +35,13 @@
       ],
       "min_raw": 5,
       "max_raw": 400,
-      "min_mult": 3,
+      "min_mult": 2.5,
       "min_ev": 40,
       "autoadd_ev": 120,
       "max_pages_per_set": 3,
       "max_candidates": 40,
-      "_note": "sets = codigos a rastrear (ajusta a los que te interesen). El scan filtra por raw dentro de [min_raw,max_raw], multiplicador >= min_mult y EV >= min_ev. Con --autoadd, mete en la watchlist las de EV >= autoadd_ev. Cuidado con el limite de 200 req/dia del tier gratis: cada pagina de set = 1 peticion."
+      "_note": "sets = codigos a rastrear (ajusta a los que te interesen). El scan filtra por raw dentro de [min_raw,max_raw], multiplicador >= min_mult y EV >= min_ev. Con --autoadd, mete en la watchlist las de EV >= autoadd_ev. Cuidado con el limite de 200 req/dia del tier gratis: cada pagina de set = 1 peticion.",
+      "_note_estimacion": "En tier gratis (sin PSA10) el scan estima el PSA10 por rareza (PSA10_MULT_DEFAULTS en update.py) y marca la candidata como estimada. Con min_mult<=2.5 salen tambien las SAR japonesas."
     }
   },
   "cards": [
@@ -76,8 +77,7 @@
           "psa10": 1675,
           "ev": 204
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "mega-gengar-rr-m2a",
@@ -111,8 +111,7 @@
           "psa10": 160,
           "ev": 25
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "magikarp-ar-triplet",
@@ -146,8 +145,7 @@
           "psa10": 90,
           "ev": 12
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "sylveon-ex-sar-terastal",
@@ -181,8 +179,7 @@
           "psa10": 180,
           "ev": 52
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "mew-ar-vstar-universe",
@@ -216,8 +213,7 @@
           "psa10": 160,
           "ev": 40
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "op01-sr-parallel-top",
@@ -251,8 +247,7 @@
           "psa10": 300,
           "ev": 13
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "chari-ex-sar-134-rbf",
@@ -286,8 +281,7 @@
           "psa10": 415,
           "ev": 208
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "chari-ex-sar-151",
@@ -321,8 +315,7 @@
           "psa10": 900,
           "ev": 296
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "pikachu-ex-sar-seb",
@@ -356,8 +349,7 @@
           "psa10": 300,
           "ev": 131
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "nanjamo-sar-clayburst",
@@ -391,8 +383,7 @@
           "psa10": 679,
           "ev": 142
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "mega-charizard-x-sar-infernox",
@@ -426,8 +417,7 @@
           "psa10": 830,
           "ev": 219
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "nami-alt-art-op01-016",
@@ -461,8 +451,7 @@
           "psa10": 2394,
           "ev": 245
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "zoro-manga-op01",
@@ -496,8 +485,7 @@
           "psa10": 1200,
           "ev": 42
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "luffy-manga-op01",
@@ -531,8 +519,7 @@
           "psa10": 1500,
           "ev": 46
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "shanks-manga-op01",
@@ -566,8 +553,7 @@
           "psa10": 550,
           "ev": -55
         }
-      ],
-      "unverified": true
+      ]
     },
     {
       "id": "pikachu-ar-151",
@@ -595,8 +581,7 @@
           "psa10": 110,
           "ev": 26
         }
-      ],
-      "unverified": true
+      ]
     }
   ]
 }

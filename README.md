@@ -127,6 +127,16 @@ Las cartas que entran por `--autoadd` se marcan con `source: scan` y
 `pending_review: true` (aparecen como **CANDIDATA** en la galeria). Revisa y
 corrige su `gem_rate` real antes de fiarte del EV.
 
+**Sin PSA10 (tier gratis)**: si la API no devuelve el precio graded (plan Free de
+tcgpricelookup), el scan **estima el PSA10 por rareza** (`PSA10_MULT_DEFAULTS` en
+`update.py`) a partir del raw real, y marca la candidata con **`psa10_est`** →
+en la galeria sale la etiqueta roja "PSA10 est". Es un descubridor de pistas, no un
+EV fiable: confirma el 10 real (GemRate / ventas cerradas) antes de comprar. Ajusta
+`min_mult` (2.5 va bien con estimacion) y los multiplos si quieres afinar.
+
+Las candidatas frescas aparecen **arriba en la galeria principal** bajo
+**"🔥 Novedades del scan"** (las nuevas de hoy primero), ademas de en `candidates.html`.
+
 `candidates.json` y `candidates.html` se regeneran en cada `--scan`; no hace falta
 versionarlos si no quieres.
 

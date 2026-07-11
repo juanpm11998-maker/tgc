@@ -18,10 +18,18 @@ abres el enlace. No hace falta tener el ordenador encendido ni ejecutar nada.
 3. **Activa los workflows**: pestaña **Actions** → si pide confirmacion,
    "I understand my workflows, enable them".
 
-4. **(Opcional) Datos en vivo y avisos**: Settings → **Secrets and variables →
-   Actions → New repository secret**:
-   - `TCG_API_KEY` — tu clave de precios (sin ella usa los precios semilla).
+4. **(Recomendado) Clave gratis para descubrir cartas nuevas**: Settings →
+   **Secrets and variables → Actions → New repository secret**:
+   - `TCG_API_KEY` — clave GRATIS de https://tcgpricelookup.com (registro → pagina
+     Developers → copia la key). Sin ella el scan no encuentra nada.
    - `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID` — si quieres el aviso diario.
+
+   **Qué te da la clave gratis** (plan Free): raw real, imagen y URL exacta de cada
+   carta, y activa el **scan diario** que rastrea sets y te propone **cartas nuevas
+   cada día** (aparecen arriba en "🔥 Novedades del scan"). El plan gratis **no trae
+   PSA 10**, así que el scan lo **estima por rareza** (marcado como "PSA10 est"):
+   son pistas para investigar, confirma el 10 real antes de comprar. Para PSA 10
+   automático de verdad, el plan Starter (~20 $/mes) lo incluye.
 
 5. **Lanzalo una vez a mano**: Actions → "Actualizar y publicar galeria TGC" →
    **Run workflow**. Al terminar, tu galeria vive en:
