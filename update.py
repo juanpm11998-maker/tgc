@@ -17,7 +17,7 @@ Uso:
 Env (opcionales): TCG_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 """
 
-import os, re, json, argparse, datetime, urllib.request, urllib.parse, html as htmlmod
+import os, re, json, time, argparse, datetime, urllib.request, urllib.parse, urllib.error, html as htmlmod
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WATCHLIST = os.path.join(HERE, "watchlist.json")
@@ -33,26 +33,37 @@ API_BASE = "https://api.tcgpricelookup.com/v1"
 #   label -> nombre visible en la galeria
 #   theme -> clave de estilo CSS para el placeholder (ver HEAD)
 # Anade el que quieras aqui o desde watchlist.json > config > games (se fusiona).
+# slugs 'api' segun /v1/games de tcgpricelookup (jul-2026):
+# pokemon, pokemon-jp, onepiece, mtg, yugioh, lorcana, fab, swu
 GAMES = {
-    "pokemon_en": {"api": "pokemon",   "label": "Pokemon EN", "theme": "pk"},
-    "pokemon_jp": {"api": "pokemonjp", "label": "Pokemon JP", "theme": "pk"},
-    "onepiece":   {"api": "onepiece",  "label": "One Piece",  "theme": "op"},
-    "magic":      {"api": "magic",     "label": "Magic",      "theme": "mtg"},
-    "yugioh":     {"api": "yugioh",    "label": "Yu-Gi-Oh!",  "theme": "ygo"},
-    "lorcana":    {"api": "lorcana",   "label": "Lorcana",    "theme": "lor"},
-    "digimon":    {"api": "digimon",   "label": "Digimon",    "theme": "dgm"},
+    "pokemon_en": {"api": "pokemon",    "label": "Pokemon EN",      "theme": "pk"},
+    "pokemon_jp": {"api": "pokemon-jp", "label": "Pokemon JP",      "theme": "pk"},
+    "onepiece":   {"api": "onepiece",   "label": "One Piece",       "theme": "op"},
+    "magic":      {"api": "mtg",        "label": "Magic",           "theme": "mtg"},
+    "yugioh":     {"api": "yugioh",     "label": "Yu-Gi-Oh!",       "theme": "ygo"},
+    "lorcana":    {"api": "lorcana",    "label": "Lorcana",         "theme": "lor"},
+    "fab":        {"api": "fab",        "label": "Flesh and Blood", "theme": "gn"},
+    "starwars":   {"api": "swu",        "label": "Star Wars U.",    "theme": "gn"},
 }
 # ------------------------------------------------------------
 
-# gem_rate estimado por juego+rareza (punto de partida; ajustalo con GemRate/PSA pop)
+# gem_rate estimado por juego+rareza. Las claves son NOMBRES que devuelve la API
+# (ej. "SPECIAL ART RARE") y tambien codigos cortos; se elige la clave mas larga que
+# encaje (asi "SPECIAL ART RARE" gana a "ART RARE" o "RARE"). Ajusta con GemRate/PSA pop.
 GEM_DEFAULTS = {
-    "pokemon_jp": {"SAR": 0.80, "SIR": 0.80, "SR": 0.75, "AR": 0.60, "UR": 0.70, "_": 0.60},
-    "pokemon_en": {"SIR": 0.45, "SAR": 0.45, "SR": 0.42, "AR": 0.42, "_": 0.40},
-    "onepiece":   {"MR": 0.10, "SEC": 0.12, "SP": 0.12, "SAA": 0.12, "L": 0.20, "SR": 0.18, "_": 0.15},
+    "pokemon_jp": {"SPECIAL ILLUSTRATION RARE": 0.80, "SPECIAL ART RARE": 0.80,
+                   "ILLUSTRATION RARE": 0.60, "ART RARE": 0.60, "MEGA ULTRA RARE": 0.78,
+                   "ULTRA RARE": 0.72, "DOUBLE RARE": 0.60, "HYPER RARE": 0.65,
+                   "SAR": 0.80, "SIR": 0.80, "AR": 0.60, "UR": 0.70, "_": 0.62},
+    "pokemon_en": {"SPECIAL ILLUSTRATION RARE": 0.45, "ILLUSTRATION RARE": 0.42,
+                   "ULTRA RARE": 0.42, "DOUBLE RARE": 0.40, "HYPER RARE": 0.42,
+                   "SIR": 0.45, "SAR": 0.45, "AR": 0.42, "_": 0.40},
+    "onepiece":   {"SECRET RARE": 0.12, "SUPER RARE": 0.18, "MANGA": 0.10, "LEADER": 0.20,
+                   "SPECIAL CARD": 0.12, "MR": 0.10, "SEC": 0.12, "L": 0.20, "SR": 0.18, "_": 0.15},
     "magic":      {"MYTHIC": 0.35, "RARE": 0.35, "_": 0.35},
-    "yugioh":     {"GHOST": 0.20, "SECRET": 0.30, "ULTRA": 0.35, "_": 0.30},
+    "yugioh":     {"GHOST RARE": 0.20, "SECRET RARE": 0.30, "ULTRA RARE": 0.35,
+                   "GHOST": 0.20, "SECRET": 0.30, "ULTRA": 0.35, "_": 0.30},
     "lorcana":    {"ENCHANTED": 0.45, "LEGENDARY": 0.45, "_": 0.42},
-    "digimon":    {"SEC": 0.15, "SR": 0.20, "_": 0.18},
 }
 
 
@@ -87,10 +98,23 @@ def save(data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def http_json(url, headers=None, timeout=25):
-    req = urllib.request.Request(url, headers=headers or {})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8"))
+# La API va tras Cloudflare: sin User-Agent de navegador devuelve 403 (error 1010).
+UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+
+
+def http_json(url, headers=None, timeout=25, retries=3):
+    h = {"User-Agent": UA, "Accept": "application/json"}
+    h.update(headers or {})
+    for attempt in range(retries):
+        req = urllib.request.Request(url, headers=h)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < retries - 1:   # limite por rafaga: espera y reintenta
+                time.sleep(2 + attempt * 2); continue
+            raise
 
 
 def dig(d, *paths):
@@ -107,17 +131,24 @@ def dig(d, *paths):
 
 
 def parse_item(item):
-    """Extrae raw, psa10, imagen, nombre, rareza, set, codigo de un item de la API."""
-    raw = dig(item, "prices.market_price", "prices.tcgplayer.market_price",
-              "prices.near_mint", "market_price", "prices.ungraded")
-    psa10 = dig(item, "prices.graded.psa.10", "graded.psa10", "prices.psa10",
-                "grades.PSA10", "prices.graded_psa_10")
-    img = dig(item, "image", "images.large", "image_url", "images.small")
+    """Extrae raw, psa10, imagen, nombre, rareza, set, codigo de un item de la API.
+    Rutas segun la respuesta real de tcgpricelookup (jul-2026). El PSA10 solo existe
+    en planes de pago (prices.graded.*); en el plan gratis viene ausente -> None."""
+    raw = dig(item, "prices.raw.near_mint.tcgplayer.market",
+              "prices.raw.near_mint.tcgplayer.low",
+              "prices.raw.near_mint.ebay.avg_7d",
+              "prices.raw.lightly_played.tcgplayer.market",
+              # compat con MOCK / otras formas
+              "prices.market_price", "market_price")
+    psa10 = dig(item, "prices.graded.psa.10.ebay.avg_7d",
+                "prices.graded.psa.10.tcgplayer.market",
+                "prices.graded.psa.10", "prices.psa10")
+    img = dig(item, "image_url", "image", "images.large", "images.small")
     name = dig(item, "name_numbered", "name", "title")
     rarity = dig(item, "rarity", "rarity_code")
-    setname = dig(item, "episode.name", "set.name", "set_name", "set")
-    code = dig(item, "card_number", "number", "id")
-    url = dig(item, "url", "detail_url", "pricecharting_url", "product_url", "links.self", "permalink")
+    setname = dig(item, "set.name", "episode.name", "set_name", "set")
+    code = dig(item, "number", "card_number", "id")
+    url = dig(item, "url", "detail_url", "product_url", "permalink")   # esta API no da URL de ficha
     return {
         "raw": float(raw) if raw else None,
         "psa10": float(psa10) if psa10 else None,
@@ -144,9 +175,9 @@ def fetch_live(card, api_key):
         return None
     game = game_meta(card["game"])["api"]
     q = urllib.parse.quote(card.get("query") or card["name"])
-    url = f"{API_BASE}/search?game={game}&q={q}&limit=1"
+    url = f"{API_BASE}/cards/search?game={game}&q={q}&limit=1"
     try:
-        data = http_json(url, headers={"Authorization": f"Bearer {api_key}", "X-API-Key": api_key})
+        data = http_json(url, headers={"X-API-Key": api_key})
         its = items_from(data)
         if not its:
             return None
@@ -232,14 +263,22 @@ def refresh(data, dry_run):
 
 # ----------------------------- SCAN -----------------------------
 
+def rarity_lookup(table, rarity, default):
+    """Devuelve el valor de la clave MAS LARGA que sea subcadena de la rareza.
+    Asi 'SPECIAL ART RARE' encaja con esa clave y no con 'ART RARE' o 'RARE'."""
+    if not rarity:
+        return default
+    key = str(rarity).upper()
+    best = None
+    for k, v in table.items():
+        if k != "_" and k in key and (best is None or len(k) > len(best[0])):
+            best = (k, v)
+    return best[1] if best else table.get("_", default)
+
+
 def estimate_gem(game, rarity):
     table = GEM_DEFAULTS.get(game, {"_": 0.30})
-    if rarity:
-        key = str(rarity).upper()
-        for k, v in table.items():
-            if k != "_" and k in key:
-                return v
-    return table.get("_", 0.30)
+    return rarity_lookup(table, rarity, table.get("_", 0.30))
 
 
 def estimate_fee(psa10):
@@ -252,26 +291,26 @@ def estimate_fee(psa10):
 # fuente de precios no lo da (tier gratis). Es una aproximacion tosca por rareza:
 # sirve para DESCUBRIR candidatas, no para fiarte del EV. Verifica el 10 real antes.
 PSA10_MULT_DEFAULTS = {
-    "pokemon_jp": {"SAR": 2.5, "SIR": 2.5, "AR": 3.2, "SR": 2.2, "UR": 2.2, "_": 2.3},
-    "pokemon_en": {"SIR": 2.2, "SAR": 2.2, "AR": 2.6, "SR": 2.0, "_": 2.0},
-    "onepiece":   {"MR": 5.0, "SEC": 4.5, "SP": 4.0, "SAA": 4.5, "MANGA": 5.0, "L": 2.5, "SR": 2.6, "_": 3.0},
+    "pokemon_jp": {"SPECIAL ILLUSTRATION RARE": 2.5, "SPECIAL ART RARE": 2.5,
+                   "ILLUSTRATION RARE": 3.2, "ART RARE": 3.2, "MEGA ULTRA RARE": 2.6,
+                   "ULTRA RARE": 2.2, "DOUBLE RARE": 1.8, "HYPER RARE": 2.2,
+                   "SAR": 2.5, "SIR": 2.5, "AR": 3.2, "UR": 2.2, "_": 2.3},
+    "pokemon_en": {"SPECIAL ILLUSTRATION RARE": 2.2, "ILLUSTRATION RARE": 2.6,
+                   "ULTRA RARE": 2.0, "DOUBLE RARE": 1.8, "HYPER RARE": 2.0,
+                   "SIR": 2.2, "SAR": 2.2, "AR": 2.6, "_": 2.0},
+    "onepiece":   {"SECRET RARE": 4.5, "SUPER RARE": 2.6, "MANGA": 5.0, "LEADER": 2.5,
+                   "SPECIAL CARD": 4.0, "MR": 5.0, "SEC": 4.5, "L": 2.5, "SR": 2.6, "_": 3.0},
     "magic":      {"MYTHIC": 2.0, "RARE": 2.0, "_": 2.0},
-    "yugioh":     {"GHOST": 3.5, "SECRET": 3.0, "ULTRA": 2.3, "_": 2.6},
+    "yugioh":     {"GHOST RARE": 3.5, "SECRET RARE": 3.0, "ULTRA RARE": 2.3,
+                   "GHOST": 3.5, "SECRET": 3.0, "ULTRA": 2.3, "_": 2.6},
     "lorcana":    {"ENCHANTED": 2.6, "LEGENDARY": 2.4, "_": 2.3},
-    "digimon":    {"SEC": 3.2, "SR": 2.6, "_": 2.7},
 }
 
 
 def estimate_psa10(game, rarity, raw):
     """Estima el PSA10 a partir del raw real cuando la API no da el graded (tier gratis)."""
     table = PSA10_MULT_DEFAULTS.get(game, {"_": 2.3})
-    mult = table.get("_", 2.3)
-    if rarity:
-        key = str(rarity).upper()
-        for k, v in table.items():
-            if k != "_" and k in key:
-                mult = v; break
-    return round(raw * mult, 2)
+    return round(raw * rarity_lookup(table, rarity, table.get("_", 2.3)), 2)
 
 
 MOCK_SET = [
@@ -290,22 +329,27 @@ MOCK_SET = [
 
 
 def fetch_set(game_key, set_code, api_key, max_pages, mock=False):
+    """Lista las cartas de un set via /cards/search?game=&set=&limit=&offset= (paginado)."""
     if mock:
         return [parse_item(x) for x in MOCK_SET]
     game = game_meta(game_key)["api"]
     out = []
-    for page in range(1, max_pages + 1):
-        url = f"{API_BASE}/cards?game={game}&set={urllib.parse.quote(set_code)}&page={page}&limit=100"
+    limit = 100
+    for page in range(max_pages):
+        offset = page * limit
+        url = (f"{API_BASE}/cards/search?game={game}"
+               f"&set={urllib.parse.quote(set_code)}&limit={limit}&offset={offset}")
         try:
-            data = http_json(url, headers={"Authorization": f"Bearer {api_key}", "X-API-Key": api_key})
+            data = http_json(url, headers={"X-API-Key": api_key})
         except Exception as e:
-            print(f"  ! scan fallo {game_key}/{set_code} p{page}: {e}")
+            print(f"  ! scan fallo {game_key}/{set_code} offset{offset}: {e}")
             break
         its = items_from(data)
         if not its:
             break
         out.extend(parse_item(x) for x in its)
-        if len(its) < 100:
+        total = data.get("total") if isinstance(data, dict) else None
+        if len(its) < limit or (total is not None and offset + limit >= total):
             break
     return out
 
@@ -771,16 +815,38 @@ def add_card(data, name, game):
     print(f"Anadida: {name}."); return data
 
 
+def list_sets(game_key):
+    """Imprime los sets de un juego (slug + nº de cartas) para rellenar config.scan.sets."""
+    api_key = os.environ.get("TCG_API_KEY", "").strip()
+    if not api_key:
+        print("Necesitas TCG_API_KEY en el entorno."); return
+    game = game_meta(game_key)["api"]
+    try:
+        data = http_json(f"{API_BASE}/sets?game={game}&limit=500", headers={"X-API-Key": api_key})
+    except Exception as e:
+        print(f"Error: {e}"); return
+    rows = sorted((x for x in data.get("data", []) if x.get("count", 0) >= 40),
+                  key=lambda x: -x.get("count", 0))
+    print(f"{len(rows)} sets de {game} (count>=40), por nº de cartas:")
+    for x in rows:
+        print(f'  {x.get("count",0):>4}  {x["slug"]}   ({x.get("name","")})')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--add", metavar="NOMBRE")
     ap.add_argument("--game", default="pokemon_jp",
-                    help="clave de juego (pokemon_jp, onepiece, magic, yugioh, lorcana, digimon, ...)")
+                    help="clave de juego (pokemon_jp, onepiece, magic, yugioh, lorcana, ...)")
     ap.add_argument("--scan", action="store_true", help="escanea scan_sets y propone candidatas")
     ap.add_argument("--autoadd", action="store_true", help="con --scan, mete las mejores en la watchlist")
     ap.add_argument("--mock", action="store_true", help="prueba el scan con datos de ejemplo")
+    ap.add_argument("--list-sets", metavar="JUEGO", dest="list_sets",
+                    help="lista los sets (slug + nº cartas) de un juego para el config del scan")
     args = ap.parse_args()
+
+    if args.list_sets:
+        list_sets(args.list_sets); return
 
     data = load()
     cfg = data.get("config", {})

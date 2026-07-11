@@ -18,19 +18,19 @@
       "sets": [
         {
           "game": "onepiece",
-          "code": "OP-08"
+          "code": "onepiece--two-legends"
         },
         {
           "game": "onepiece",
-          "code": "OP-09"
+          "code": "onepiece--wings-of-the-captain"
+        },
+        {
+          "game": "onepiece",
+          "code": "onepiece--500-years-in-the-future"
         },
         {
           "game": "pokemon_jp",
-          "code": "sv8a"
-        },
-        {
-          "game": "pokemon_jp",
-          "code": "sv9a"
+          "code": "pokemon-jp--m2a-high-class-pack-mega-dream-ex"
         }
       ],
       "min_raw": 5,
@@ -38,10 +38,11 @@
       "min_mult": 2.5,
       "min_ev": 40,
       "autoadd_ev": 120,
-      "max_pages_per_set": 3,
+      "max_pages_per_set": 6,
       "max_candidates": 40,
       "_note": "sets = codigos a rastrear (ajusta a los que te interesen). El scan filtra por raw dentro de [min_raw,max_raw], multiplicador >= min_mult y EV >= min_ev. Con --autoadd, mete en la watchlist las de EV >= autoadd_ev. Cuidado con el limite de 200 req/dia del tier gratis: cada pagina de set = 1 peticion.",
-      "_note_estimacion": "En tier gratis (sin PSA10) el scan estima el PSA10 por rareza (PSA10_MULT_DEFAULTS en update.py) y marca la candidata como estimada. Con min_mult<=2.5 salen tambien las SAR japonesas."
+      "_note_estimacion": "En tier gratis (sin PSA10) el scan estima el PSA10 por rareza (PSA10_MULT_DEFAULTS en update.py) y marca la candidata como estimada. Con min_mult<=2.5 salen tambien las SAR japonesas.",
+      "_note_slugs": "code = slug real de la API (ej. onepiece--two-legends). Encuentralos con: python3 update.py --list-sets onepiece"
     }
   },
   "cards": [

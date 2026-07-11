@@ -113,7 +113,13 @@ scan lo **estima por rareza** (SAR/SIR japonesas ~0.80, One Piece MR/SEC ~0.10, 
 python3 update.py --scan            # escribe candidates.json + candidates.html
 python3 update.py --scan --autoadd  # ademas mete en la watchlist las de EV alto
 python3 update.py --scan --mock     # prueba con datos de ejemplo, sin gastar API
+python3 update.py --list-sets onepiece   # lista slugs de sets (para config.scan.sets)
 ```
+
+> Los `code` de `config.scan.sets` son los **slugs reales** de la API
+> (ej. `onepiece--two-legends`, `pokemon-jp--m2a-high-class-pack-mega-dream-ex`).
+> Sacalos con `--list-sets <juego>`. Ojo: las cartas caras (SAR/secretas) tienen
+> numero alto y estan al final del set, sube `max_pages_per_set` para alcanzarlas.
 
 Configuras que sets escanea y los filtros en `watchlist.json > config > scan`:
 - `sets`: lista de `{game, code}` a rastrear.
