@@ -56,7 +56,7 @@
       "grading_fee": 25,
       "seed_raw": 80,
       "seed_psa10": 1675,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/4d25f7761db0c1ca.webp",
       "link": "https://www.pricecharting.com/game/pokemon-promo/charizard-vstar-swsh262",
       "note": "Loteria: borde negro, gem baja, techo enorme.",
       "history": [
@@ -84,7 +84,8 @@
           "psa10": 1675,
           "ev": 204
         }
-      ]
+      ],
+      "live_raw": 89.68
     },
     {
       "id": "mega-gengar-rr-m2a",
@@ -96,7 +97,7 @@
       "grading_fee": 18,
       "seed_raw": 12,
       "seed_psa10": 160,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/5a643f31ff611d05.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Gengar%20ex%20double%20rare%20mega%20dream&type=prices",
       "note": "Version RR (NO la SAR #230, que vale ~$580). Solo en lote.",
       "history": [
@@ -136,7 +137,7 @@
       "grading_fee": 20,
       "seed_raw": 28,
       "seed_psa10": 90,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/aea49136b8cbbd37.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-triplet-beat/magikarp-80",
       "note": "AR #080/073. Real (verificado). Precio aprox: confirma comp.",
       "history": [
@@ -164,7 +165,8 @@
           "psa10": 90,
           "ev": 12
         }
-      ]
+      ],
+      "live_raw": 0.43
     },
     {
       "id": "sylveon-ex-sar-terastal",
@@ -204,7 +206,8 @@
           "psa10": 180,
           "ev": 52
         }
-      ]
+      ],
+      "live_raw": 2.33
     },
     {
       "id": "mew-ar-vstar-universe",
@@ -216,7 +219,7 @@
       "grading_fee": 18,
       "seed_raw": 65,
       "seed_psa10": 160,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/4b4377a69fae5ff0.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-vstar-universe/mew-183",
       "note": "Viento a favor por el 30 aniversario.",
       "history": [
@@ -256,7 +259,7 @@
       "grading_fee": 18,
       "seed_raw": 90,
       "seed_psa10": 300,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/0f4f2de402acf7cd.webp",
       "link": "https://www.pricecharting.com/search-products?q=One%20Piece%20OP01%20SR%20parallel&type=prices",
       "note": "~2,5x neto con submission en lote.",
       "history": [
@@ -284,7 +287,8 @@
           "psa10": 300,
           "ev": 13
         }
-      ]
+      ],
+      "live_raw": 0.27
     },
     {
       "id": "chari-ex-sar-134-rbf",
@@ -324,7 +328,8 @@
           "psa10": 415,
           "ev": 208
         }
-      ]
+      ],
+      "live_raw": 146.17
     },
     {
       "id": "chari-ex-sar-151",
@@ -364,7 +369,8 @@
           "psa10": 900,
           "ev": 296
         }
-      ]
+      ],
+      "live_raw": 9.52
     },
     {
       "id": "pikachu-ex-sar-seb",
@@ -376,7 +382,7 @@
       "grading_fee": 25,
       "seed_raw": 125,
       "seed_psa10": 300,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/4b87c3319ff543ce.webp",
       "link": "https://www.pricecharting.com/search-products?q=Pikachu%20ex%20SAR%20Super%20Electric%20Breaker&type=prices",
       "note": "~90% gem, la mas fiable del mercado.",
       "history": [
@@ -416,7 +422,7 @@
       "grading_fee": 50,
       "seed_raw": 314,
       "seed_psa10": 679,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/f68f888b276da391.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-clay-burst/iono-96",
       "note": "+116% ROI pero solo 58% gem = riesgo.",
       "history": [
@@ -456,7 +462,7 @@
       "grading_fee": 50,
       "seed_raw": 500,
       "seed_psa10": 830,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/a954a75e9d2754c4.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Charizard%20X%20ex%20SAR%20Inferno%20X&type=prices",
       "note": "Mayor ganancia absoluta por carta (+$327).",
       "history": [
@@ -484,7 +490,8 @@
           "psa10": 830,
           "ev": 219
         }
-      ]
+      ],
+      "live_raw": 44.53
     },
     {
       "id": "nami-alt-art-op01-016",
@@ -524,7 +531,8 @@
           "psa10": 2394,
           "ev": 245
         }
-      ]
+      ],
+      "live_raw": 108.74
     },
     {
       "id": "zoro-manga-op01",
@@ -536,7 +544,7 @@
       "grading_fee": 25,
       "seed_raw": 225,
       "seed_psa10": 1200,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/f476a226e3802b38.webp",
       "link": "https://www.pricecharting.com/search-products?q=Zoro%20Manga%20OP01&type=prices",
       "note": "Textura que se raya, variance alta.",
       "history": [
@@ -564,7 +572,8 @@
           "psa10": 1200,
           "ev": 42
         }
-      ]
+      ],
+      "live_raw": 1750.0
     },
     {
       "id": "luffy-manga-op01",
@@ -576,7 +585,7 @@
       "grading_fee": 33,
       "seed_raw": 300,
       "seed_psa10": 1500,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/e7e9751e26faa178.webp",
       "link": "https://www.pricecharting.com/search-products?q=Luffy%20Manga%20OP01&type=prices",
       "note": "Chase, vende en dias en PSA 10.",
       "history": [
@@ -604,7 +613,8 @@
           "psa10": 1500,
           "ev": 46
         }
-      ]
+      ],
+      "live_raw": 1416.64
     },
     {
       "id": "shanks-manga-op01",
@@ -616,7 +626,7 @@
       "grading_fee": 33,
       "seed_raw": 350,
       "seed_psa10": 550,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/c7be8d2a94fd772c.webp",
       "link": "https://www.pricecharting.com/game/one-piece-romance-dawn/shanks-manga-op01-120",
       "note": "Iconica, suelo firme.",
       "history": [
@@ -644,7 +654,8 @@
           "psa10": 550,
           "ev": -55
         }
-      ]
+      ],
+      "live_raw": 1249.99
     },
     {
       "id": "pikachu-ar-151",
@@ -678,7 +689,8 @@
           "psa10": 110,
           "ev": 26
         }
-      ]
+      ],
+      "live_raw": 36.49
     }
   ]
 }
