@@ -170,18 +170,51 @@ def items_from(data):
 
 # --------------------------- watchlist refresh ---------------------------
 
+def num_primary(n):
+    """Numero principal de una carta: '212/193' -> '212', '080' -> '80'."""
+    if not n:
+        return None
+    s = re.split(r"[/\s]", str(n))[0].strip().lstrip("0")
+    return s or None
+
+
+def name_overlap(a, b):
+    """Nº de palabras (>=3 letras) en comun entre dos nombres."""
+    wa = {w for w in re.findall(r"[a-z0-9]+", (a or "").lower()) if len(w) >= 3}
+    wb = {w for w in re.findall(r"[a-z0-9]+", (b or "").lower()) if len(w) >= 3}
+    return len(wa & wb)
+
+
+def choose_match(items, name, target_num):
+    """Elige la carta correcta de los resultados de busqueda.
+    Prioriza casar por NUMERO de carta (evita cajas de sobres y variantes baratas).
+    Sin numero objetivo, no arriesga: devuelve None (mantiene el seed)."""
+    # descarta sellado / no-cartas: sin rareza y sin numero = probable caja/producto
+    cards = [it for it in items if it.get("rarity") or num_primary(it.get("code"))]
+    if not cards:
+        return None
+    if target_num:
+        hits = [it for it in cards if num_primary(it.get("code")) == target_num]
+        if not hits:
+            return None
+        hits.sort(key=lambda it: name_overlap(it.get("name"), name), reverse=True)
+        return hits[0]
+    return None   # sin numero fiable, no sobreescribimos datos buenos con una adivinanza
+
+
 def fetch_live(card, api_key):
     if not api_key:
         return None
     game = game_meta(card["game"])["api"]
     q = urllib.parse.quote(card.get("query") or card["name"])
-    url = f"{API_BASE}/cards/search?game={game}&q={q}&limit=1"
+    url = f"{API_BASE}/cards/search?game={game}&q={q}&limit=25"
+    target = num_primary(card_number(card.get("set"), card.get("query"), card.get("name")))
     try:
         data = http_json(url, headers={"X-API-Key": api_key})
-        its = items_from(data)
-        if not its:
+        items = [parse_item(x) for x in items_from(data)]
+        p = choose_match(items, card["name"], target)
+        if not p:
             return None
-        p = parse_item(its[0])
         out = {"_found": True}
         if p["raw"]:   out["raw"] = p["raw"]
         if p["psa10"]: out["psa10"] = p["psa10"]
@@ -235,18 +268,25 @@ def refresh(data, dry_run):
     for c in data["cards"]:
         live = None if dry_run else fetch_live(c, api_key)
         if live:
-            if "raw" in live: c["live_raw"] = live["raw"]
-            if "psa10" in live: c["live_psa10"] = live["psa10"]
-            if live.get("image_url") and not c.get("image_url"):
+            # Solo actualizamos precios en vivo si tenemos AMBOS (raw y PSA10). El plan gratis
+            # no da PSA10: actualizar solo el raw desincronizaria el par y romperia el EV, asi
+            # que mantenemos tu par seed (tus valores investigados) y solo refrescamos la imagen.
+            if "raw" in live and "psa10" in live:
+                c["live_raw"] = live["raw"]; c["live_psa10"] = live["psa10"]
+            else:
+                c.pop("live_raw", None); c.pop("live_psa10", None)
+            # match fiable (por numero): adoptamos su imagen aunque hubiera otra (corrige malas)
+            if live.get("image_url"):
                 c["image_url"] = live["image_url"]
             # auto-corregir el enlace: si la API da URL directa y el actual es de grupo, adoptarla
             if live.get("url") and not is_group_link(live["url"]) and is_group_link(c.get("link")):
                 c["link"] = live["url"]
             c.pop("unverified", None)
         elif not dry_run and api_key:
-            # habia clave pero la API no encontro la carta: entrada fantasma o mal etiquetada
+            # habia clave pero no hubo match fiable: dejamos el seed y avisamos (sin corromper)
+            c.pop("live_raw", None); c.pop("live_psa10", None)
             c["unverified"] = True
-            print(f"  ? sin match en API: revisa '{c['name']}' ({c.get('set','')})")
+            print(f"  ? sin match fiable: '{c['name']}' ({c.get('set','')}) - mantengo seed")
         else:
             # sin clave (o dry-run) no se puede verificar: no marcamos REVISAR
             c.pop("unverified", None)

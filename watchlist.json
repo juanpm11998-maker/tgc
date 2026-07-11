@@ -77,6 +77,12 @@
           "raw": 80,
           "psa10": 1675,
           "ev": 204
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 80,
+          "psa10": 1675,
+          "ev": 204
         }
       ]
     },
@@ -108,6 +114,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 12,
+          "psa10": 160,
+          "ev": 25
+        },
+        {
+          "date": "2026-07-12",
           "raw": 12,
           "psa10": 160,
           "ev": 25
@@ -145,6 +157,12 @@
           "raw": 28,
           "psa10": 90,
           "ev": 12
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 28,
+          "psa10": 90,
+          "ev": 12
         }
       ]
     },
@@ -158,7 +176,7 @@
       "grading_fee": 18,
       "seed_raw": 75,
       "seed_psa10": 180,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/e6c6182cf39275c3.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-terastal-festival-ex/sylveon-ex-212",
       "note": "Sale de imprenta pronto = suelo de precio.",
       "history": [
@@ -176,6 +194,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 75,
+          "psa10": 180,
+          "ev": 52
+        },
+        {
+          "date": "2026-07-12",
           "raw": 75,
           "psa10": 180,
           "ev": 52
@@ -213,6 +237,12 @@
           "raw": 65,
           "psa10": 160,
           "ev": 40
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 65,
+          "psa10": 160,
+          "ev": 40
         }
       ]
     },
@@ -247,6 +277,12 @@
           "raw": 90,
           "psa10": 300,
           "ev": 13
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 90,
+          "psa10": 300,
+          "ev": 13
         }
       ]
     },
@@ -260,7 +296,7 @@
       "grading_fee": 25,
       "seed_raw": 150,
       "seed_psa10": 415,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/3867a75954a7c2d1.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-ruler-of-the-black-flame/charizard-ex-134",
       "note": "89% gem, muy liquida. La mas fiable.",
       "history": [
@@ -281,6 +317,12 @@
           "raw": 150,
           "psa10": 415,
           "ev": 208
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 150,
+          "psa10": 415,
+          "ev": 208
         }
       ]
     },
@@ -294,7 +336,7 @@
       "grading_fee": 50,
       "seed_raw": 450,
       "seed_psa10": 900,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/d614b813985ac069.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-scarlet-&-violet-151/charizard-ex-201",
       "note": "SAR #201/165. Raw ~$450, PSA10 ~$900 (verificado).",
       "history": [
@@ -312,6 +354,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 450,
+          "psa10": 900,
+          "ev": 296
+        },
+        {
+          "date": "2026-07-12",
           "raw": 450,
           "psa10": 900,
           "ev": 296
@@ -349,6 +397,12 @@
           "raw": 125,
           "psa10": 300,
           "ev": 131
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 125,
+          "psa10": 300,
+          "ev": 131
         }
       ]
     },
@@ -380,6 +434,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 314,
+          "psa10": 679,
+          "ev": 142
+        },
+        {
+          "date": "2026-07-12",
           "raw": 314,
           "psa10": 679,
           "ev": 142
@@ -417,6 +477,12 @@
           "raw": 500,
           "psa10": 830,
           "ev": 219
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 500,
+          "psa10": 830,
+          "ev": 219
         }
       ]
     },
@@ -430,7 +496,7 @@
       "grading_fee": 18,
       "seed_raw": 97,
       "seed_psa10": 2394,
-      "image_url": "https://storage.googleapis.com/images.pricecharting.com/u54yowm3lqofy2ox/240.jpg",
+      "image_url": "https://cdn.tcgpricelookup.com/cards/e078c2301b8efa69.webp",
       "link": "https://www.pricecharting.com/game/one-piece-romance-dawn/nami-alternate-art-op01-016",
       "note": "OJO: el PSA10 esta inflado por copias pre-errata. Verifica variante.",
       "history": [
@@ -448,6 +514,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 97,
+          "psa10": 2394,
+          "ev": 245
+        },
+        {
+          "date": "2026-07-12",
           "raw": 97,
           "psa10": 2394,
           "ev": 245
@@ -485,6 +557,12 @@
           "raw": 225,
           "psa10": 1200,
           "ev": 42
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 225,
+          "psa10": 1200,
+          "ev": 42
         }
       ]
     },
@@ -516,6 +594,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 300,
+          "psa10": 1500,
+          "ev": 46
+        },
+        {
+          "date": "2026-07-12",
           "raw": 300,
           "psa10": 1500,
           "ev": 46
@@ -553,6 +637,12 @@
           "raw": 350,
           "psa10": 550,
           "ev": -55
+        },
+        {
+          "date": "2026-07-12",
+          "raw": 350,
+          "psa10": 550,
+          "ev": -55
         }
       ]
     },
@@ -566,7 +656,7 @@
       "grading_fee": 20,
       "seed_raw": 30,
       "seed_psa10": 110,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/7bc5e1bf35f082b6.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-scarlet-&-violet-151/pikachu-173",
       "note": "AR #173/165 de 151 (correccion: NO es de Triplet Beat). Precio aprox.",
       "history": [
@@ -578,6 +668,12 @@
         },
         {
           "date": "2026-07-11",
+          "raw": 30,
+          "psa10": 110,
+          "ev": 26
+        },
+        {
+          "date": "2026-07-12",
           "raw": 30,
           "psa10": 110,
           "ev": 26
