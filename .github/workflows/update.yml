@@ -1,0 +1,74 @@
+name: Actualizar y publicar galeria TGC
+
+# Corre en los servidores de GitHub: TU NO EJECUTAS NADA.
+# 1) refresca precios/EV y regenera index.html
+# 2) commitea el historico de vuelta al repo
+# 3) publica la galeria en GitHub Pages (URL que se refresca sola)
+#
+# IMPORTANTE: sube el CONTENIDO de la carpeta 'agente' a la RAIZ del repositorio
+# (asi este fichero queda en .github/workflows/update.yml y update.py en la raiz).
+
+on:
+  schedule:
+    - cron: "0 7 * * *"     # cada dia a las 07:00 UTC (~09:00 Espana)
+  workflow_dispatch:          # boton para lanzarlo a mano
+  push:
+    branches: [main]          # y en cada push a main
+
+permissions:
+  contents: write             # para commitear el historico
+  pages: write                # para publicar en Pages
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ejecutar agente (scan + refresco)
+        env:
+          TCG_API_KEY: ${{ secrets.TCG_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python update.py --scan
+
+      - name: Commit historico
+        run: |
+          git config user.name "tgc-bot"
+          git config user.email "tgc-bot@users.noreply.github.com"
+          git add index.html watchlist.json candidates.json candidates.html 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Actualizacion diaria galeria + scan TGC ($(date -u +%F))"
+          git push || true
+
+      - name: Preparar sitio
+        run: |
+          mkdir -p _site
+          cp index.html _site/index.html
+          [ -f candidates.html ] && cp candidates.html _site/candidates.html || true
+
+      - name: Subir artefacto Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

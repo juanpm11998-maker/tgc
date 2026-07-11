@@ -1,0 +1,372 @@
+<!-- Generado por update.py -->
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartas para grading - ranking por EV</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--line:#2a3240;--txt:#e8edf4;--mut:#9aa7b8;--dim:#6b7789;--pk:#f0b429;--op:#e5484d;--up:#7ee787;--psa:#ffd76a;--ev:#58a6ff;--buy:#3fb950}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:26px 16px 60px}
+.wrap{max-width:1120px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px;letter-spacing:-.02em}
+h2{font-size:17px;margin:34px 0 2px}
+.meta{color:var(--mut);font-size:13px;margin:2px 0}
+.disc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin:14px 0 8px;font-size:12px;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;margin-top:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .12s,border-color .12s}
+.card:hover{transform:translateY(-3px);border-color:#3a4759}
+.card.cand{border-style:dashed;opacity:.96}
+.rank{position:absolute;top:8px;left:8px;z-index:2;background:rgba(0,0,0,.72);color:#fff;font-size:11px;font-weight:700;border-radius:20px;padding:2px 8px}
+.buy{position:absolute;top:8px;right:8px;z-index:2;background:var(--buy);color:#04260f;font-size:10px;font-weight:800;border-radius:20px;padding:2px 8px}
+.newf{position:absolute;top:8px;right:8px;z-index:2;background:#8957e5;color:#fff;font-size:10px;font-weight:800;border-radius:20px;padding:2px 8px}
+.rev{position:absolute;top:8px;right:8px;z-index:2;background:#d29922;color:#241a00;font-size:10px;font-weight:800;border-radius:20px;padding:2px 8px}
+.thumb{aspect-ratio:63/88;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;padding:12px}
+.ph .g{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.ph .n{font-size:14px;font-weight:600;padding:0 6px}
+.ph.pk{background:radial-gradient(120% 120% at 50% 0%,#3a2f0b 0%,#171a20 70%)}.ph.pk .g{color:var(--pk)}
+.ph.op{background:radial-gradient(120% 120% at 50% 0%,#3a1113 0%,#171a20 70%)}.ph.op .g{color:#ff6b6f}
+.ph.mtg{background:radial-gradient(120% 120% at 50% 0%,#2a1c3a 0%,#171a20 70%)}.ph.mtg .g{color:#c39bff}
+.ph.ygo{background:radial-gradient(120% 120% at 50% 0%,#3a2405 0%,#171a20 70%)}.ph.ygo .g{color:#e6a23c}
+.ph.lor{background:radial-gradient(120% 120% at 50% 0%,#0b2f3a 0%,#171a20 70%)}.ph.lor .g{color:#5fd0e0}
+.ph.dgm{background:radial-gradient(120% 120% at 50% 0%,#0b243a 0%,#171a20 70%)}.ph.dgm .g{color:#6aa9ff}
+.ph.gn{background:radial-gradient(120% 120% at 50% 0%,#26303a 0%,#171a20 70%)}.ph.gn .g{color:#9fb4c8}
+/* barra de herramientas */
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(14,17,22,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:14px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar input,.toolbar select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:13px}
+.toolbar input{flex:1;min-width:150px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;color:var(--mut);background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:4px 11px;cursor:pointer;user-select:none}
+.chip.on{color:#04260f;background:var(--buy);border-color:var(--buy);font-weight:700}
+.toolbar label.tg{font-size:12px;color:var(--mut);display:flex;align-items:center;gap:5px;cursor:pointer}
+.count{font-size:12px;color:var(--dim);margin-left:auto}
+.card.hide{display:none}
+.body{padding:11px 12px 13px;display:flex;flex-direction:column;gap:7px;flex:1}
+.name{font-size:14px;font-weight:650;line-height:1.25}
+.set{font-size:11px;color:var(--dim)}
+.evrow{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.evrow .ev{font-size:20px;font-weight:800;color:var(--ev)}
+.evrow .lbl{font-size:10px;color:var(--dim);text-transform:uppercase}
+.evrow .roi{margin-left:auto;font-size:11px;font-weight:800}
+.evrow .roi.up{color:var(--buy)}.evrow .roi.dn{color:var(--op)}
+.prices{display:flex;gap:6px}
+.pill{flex:1;background:var(--panel2);border-radius:8px;padding:5px 7px;text-align:center}
+.pill .l{font-size:9px;text-transform:uppercase;color:var(--dim)}
+.pill .v{font-size:13px;font-weight:700;margin-top:1px}
+.pill.raw .v{color:var(--up)}.pill.psa .v{color:var(--psa)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:10px;color:var(--mut);background:var(--panel2);border-radius:6px;padding:2px 6px}
+.tag.ok{color:#7ee787;background:#12331d}.tag.bad{color:#ff9ca0;background:#331416}
+.trend{font-size:10px;font-weight:700;border-radius:6px;padding:2px 6px}
+.trend.up{color:#7ee787;background:#12331d}.trend.dn{color:#ff9ca0;background:#331416}.trend.flat{color:var(--dim);background:var(--panel2)}
+.note{font-size:11px;color:var(--mut)}
+/* barra resumen tipo cartera */
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 2px}
+.stat{flex:1;min-width:140px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.stat .k{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.04em}
+.stat .v{font-size:20px;font-weight:800;margin-top:2px}
+.stat .s{font-size:11px;color:var(--mut)}
+.stat.hl .v{color:var(--buy)}
+.go{margin-top:auto;font-size:12px;font-weight:600;color:#58a6ff;text-decoration:none}
+.go:hover{text-decoration:underline}
+footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:var(--dim);font-size:11px}
+</style>
+<div class="wrap">
+<h1>Cartas para grading - ranking por EV</h1>
+
+<p class="meta">Actualizado: 2026-07-11 12:07 · precios en € (aprox, USD×0.92)</p>
+<div class="stats"><div class="stat"><div class="k">Cartas</div><div class="v">16</div><div class="s">11 marcadas COMPRAR</div></div><div class="stat"><div class="k">Capital (comprar todas COMPRAR)</div><div class="v">€2,501</div><div class="s">raw + fee</div></div><div class="stat hl"><div class="k">Beneficio neto esperado</div><div class="v">€1,495</div><div class="s">suma de EV</div></div><div class="stat"><div class="k">ROI de la cesta</div><div class="v">60%</div><div class="s">beneficio / capital</div></div></div>
+<div class="disc">EV = beneficio neto esperado = gem_rate*PSA10 + (1-gem_rate)*(recuperacion*raw) - raw - fee. ROI = EV / (raw+fee). El <b>margen</b> es cuantos puntos puede bajar tu gem real antes de perder dinero (break-even). La flecha es el cambio de EV desde ayer. Tasas de gem aproximadas: verifica variante y comp antes de comprar. No es asesoramiento financiero.</div>
+<div class="toolbar">
+  <input id="q" type="search" placeholder="Buscar carta..." autocomplete="off">
+  <div class="chips" id="games"><span class="chip on" data-g="">Todos</span><span class="chip" data-g="pokemon_jp">Pokemon JP</span><span class="chip" data-g="onepiece">One Piece</span><span class="chip" data-g="pokemon_en">Pokemon EN</span></div>
+  <div class="chips" id="bands">
+    <span class="chip on" data-b="0">Cualquier precio</span>
+    <span class="chip" data-b="1">&lt; €50</span>
+    <span class="chip" data-b="2">€50–100</span>
+    <span class="chip" data-b="3">&gt; €100</span>
+  </div>
+  <label class="tg"><input type="checkbox" id="onlybuy"> solo COMPRAR</label>
+  <select id="sort">
+    <option value="ev">Orden: EV neto</option>
+    <option value="roi">Orden: ROI %</option>
+    <option value="margin">Orden: margen de seguridad</option>
+    <option value="psa10">Orden: PSA 10</option>
+    <option value="raw">Orden: mas barata</option>
+  </select>
+  <span class="count" id="count"></span>
+</div>
+<div class="grid" id="grid">
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="charizard ex sar (151)" data-ev="272" data-roi="59" data-margin="57" data-raw="414" data-psa10="828" data-band="3" data-buy="1">
+  <span class="rank">#1</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Charizard ex SAR (151)</div></div></div>
+  <div class="body">
+    <div class="name">Charizard ex SAR (151)</div><div class="set">Pokemon JP · Pokemon 151 (SV2a) #201</div>
+    <div class="evrow"><span class="ev">€272</span><span class="lbl">EV neto</span><span class="roi up">+59% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€414</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€828</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +57pp</span><span class="tag">2.0x</span><span class="tag">gem 80%</span><span class="tag">fee €46</span><span class="trend up" title="cambio de EV desde el dia anterior">▲ €157</span></div>
+    <div class="note">SAR #201/165. Raw ~$450, PSA10 ~$900 (verificado).</div>
+    <a class="go" href="https://www.pricecharting.com/game/pokemon-japanese-scarlet-&amp;-violet-151/charizard-ex-201" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="onepiece" data-label="One Piece" data-name="nami [alternate art] op01-016" data-ev="225" data-roi="213" data-margin="11" data-raw="89" data-psa10="2202" data-band="2" data-buy="1">
+  <span class="rank">#2</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><img loading="lazy" src="https://storage.googleapis.com/images.pricecharting.com/u54yowm3lqofy2ox/240.jpg" alt="Nami [Alternate Art] OP01-016" onerror="this.style.display='none';this.parentNode.querySelector('.ph').style.display='flex'"><div class="ph op" style="display:none"><div class="g">One Piece</div><div class="n">Nami [Alternate Art] OP01-016</div></div></div>
+  <div class="body">
+    <div class="name">Nami [Alternate Art] OP01-016</div><div class="set">One Piece · Romance Dawn</div>
+    <div class="evrow"><span class="ev">€225</span><span class="lbl">EV neto</span><span class="roi up">+213% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€89</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€2,202</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +11pp</span><span class="tag">24.7x</span><span class="tag">gem 12%</span><span class="tag">fee €17</span></div>
+    <div class="note">OJO: el PSA10 esta inflado por copias pre-errata. Verifica variante.</div>
+    <a class="go" href="https://www.pricecharting.com/game/one-piece-romance-dawn/nami-alternate-art-op01-016" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="mega charizard x ex sar" data-ev="201" data-roi="40" data-margin="54" data-raw="460" data-psa10="764" data-band="3" data-buy="1">
+  <span class="rank">#3</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Mega Charizard X ex SAR</div></div></div>
+  <div class="body">
+    <div class="name">Mega Charizard X ex SAR</div><div class="set">Pokemon JP · Inferno X</div>
+    <div class="evrow"><span class="ev">€201</span><span class="lbl">EV neto</span><span class="roi up">+40% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€460</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€764</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +54pp</span><span class="tag">1.7x</span><span class="tag">gem 85%</span><span class="tag">fee €46</span></div>
+    <div class="note">Mayor ganancia absoluta por carta (+$327).</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Mega%20Charizard%20X%20ex%20SAR%20Inferno%20X&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="charizard ex sar #134" data-ev="191" data-roi="119" data-margin="72" data-raw="138" data-psa10="382" data-band="3" data-buy="1">
+  <span class="rank">#4</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Charizard ex SAR #134</div></div></div>
+  <div class="body">
+    <div class="name">Charizard ex SAR #134</div><div class="set">Pokemon JP · Ruler of Black Flame</div>
+    <div class="evrow"><span class="ev">€191</span><span class="lbl">EV neto</span><span class="roi up">+119% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€138</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€382</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +72pp</span><span class="tag">2.8x</span><span class="tag">gem 89%</span><span class="tag">fee €23</span></div>
+    <div class="note">89% gem, muy liquida. La mas fiable.</div>
+    <a class="go" href="https://www.pricecharting.com/game/pokemon-japanese-ruler-of-the-black-flame/charizard-ex-134" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_en" data-label="Pokemon EN" data-name="charizard vstar swsh262" data-ev="188" data-roi="194" data-margin="13" data-raw="74" data-psa10="1541" data-band="2" data-buy="1">
+  <span class="rank">#5</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon EN</div><div class="n">Charizard VStar SWSH262</div></div></div>
+  <div class="body">
+    <div class="name">Charizard VStar SWSH262</div><div class="set">Pokemon EN · Promo</div>
+    <div class="evrow"><span class="ev">€188</span><span class="lbl">EV neto</span><span class="roi up">+194% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€74</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€1,541</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +13pp</span><span class="tag">20.9x</span><span class="tag">gem 15%</span><span class="tag">fee €23</span></div>
+    <div class="note">Loteria: borde negro, gem baja, techo enorme.</div>
+    <a class="go" href="https://www.pricecharting.com/game/pokemon-promo/charizard-vstar-swsh262" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="nanjamo (iono) sar" data-ev="131" data-roi="39" data-margin="34" data-raw="289" data-psa10="625" data-band="3" data-buy="1">
+  <span class="rank">#6</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Nanjamo (Iono) SAR</div></div></div>
+  <div class="body">
+    <div class="name">Nanjamo (Iono) SAR</div><div class="set">Pokemon JP · Clay Burst (SV2D) #96</div>
+    <div class="evrow"><span class="ev">€131</span><span class="lbl">EV neto</span><span class="roi up">+39% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€289</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€625</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +34pp</span><span class="tag">2.2x</span><span class="tag">gem 57%</span><span class="tag">fee €46</span><span class="trend dn" title="cambio de EV desde el dia anterior">▼ €16</span></div>
+    <div class="note">+116% ROI pero solo 58% gem = riesgo.</div>
+    <a class="go" href="https://www.pricecharting.com/game/pokemon-japanese-clay-burst/iono-96" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="pikachu ex sar" data-ev="121" data-roi="87" data-margin="67" data-raw="115" data-psa10="276" data-band="3" data-buy="1">
+  <span class="rank">#7</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Pikachu ex SAR</div></div></div>
+  <div class="body">
+    <div class="name">Pikachu ex SAR</div><div class="set">Pokemon JP · Super Electric Breaker</div>
+    <div class="evrow"><span class="ev">€121</span><span class="lbl">EV neto</span><span class="roi up">+87% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€115</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€276</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +67pp</span><span class="tag">2.4x</span><span class="tag">gem 90%</span><span class="tag">fee €23</span></div>
+    <div class="note">~90% gem, la mas fiable del mercado.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Pikachu%20ex%20SAR%20Super%20Electric%20Breaker&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="sylveon ex sar" data-ev="48" data-roi="56" data-margin="45" data-raw="69" data-psa10="166" data-band="2" data-buy="1">
+  <span class="rank">#8</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Sylveon ex SAR</div></div></div>
+  <div class="body">
+    <div class="name">Sylveon ex SAR</div><div class="set">Pokemon JP · Terastal Festival ex (SV8a) #212</div>
+    <div class="evrow"><span class="ev">€48</span><span class="lbl">EV neto</span><span class="roi up">+56% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€69</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€166</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +45pp</span><span class="tag">2.4x</span><span class="tag">gem 70%</span><span class="tag">fee €17</span></div>
+    <div class="note">Sale de imprenta pronto = suelo de precio.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Sylveon%20ex%20SAR%20Terastal%20Festival%20212&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="onepiece" data-label="One Piece" data-name="luffy manga art rare" data-ev="42" data-roi="14" data-margin="4" data-raw="276" data-psa10="1380" data-band="3" data-buy="1">
+  <span class="rank">#9</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph op"><div class="g">One Piece</div><div class="n">Luffy Manga Art Rare</div></div></div>
+  <div class="body">
+    <div class="name">Luffy Manga Art Rare</div><div class="set">One Piece · OP-01</div>
+    <div class="evrow"><span class="ev">€42</span><span class="lbl">EV neto</span><span class="roi up">+14% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€276</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€1,380</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +4pp</span><span class="tag">5.0x</span><span class="tag">gem 10%</span><span class="tag">fee €30</span></div>
+    <div class="note">Chase, vende en dias en PSA 10.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Luffy%20Manga%20OP01&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="onepiece" data-label="One Piece" data-name="zoro manga art rare" data-ev="39" data-roi="17" data-margin="4" data-raw="207" data-psa10="1104" data-band="3" data-buy="1">
+  <span class="rank">#10</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph op"><div class="g">One Piece</div><div class="n">Zoro Manga Art Rare</div></div></div>
+  <div class="body">
+    <div class="name">Zoro Manga Art Rare</div><div class="set">One Piece · OP-01</div>
+    <div class="evrow"><span class="ev">€39</span><span class="lbl">EV neto</span><span class="roi up">+17% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€207</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€1,104</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +4pp</span><span class="tag">5.3x</span><span class="tag">gem 10%</span><span class="tag">fee €23</span></div>
+    <div class="note">Textura que se raya, variance alta.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Zoro%20Manga%20OP01&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="mew ar" data-ev="37" data-roi="49" data-margin="39" data-raw="60" data-psa10="147" data-band="2" data-buy="1">
+  <span class="rank">#11</span><span class="buy">COMPRAR</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Mew AR</div></div></div>
+  <div class="body">
+    <div class="name">Mew AR</div><div class="set">Pokemon JP · VSTAR Universe (s12a) #183</div>
+    <div class="evrow"><span class="ev">€37</span><span class="lbl">EV neto</span><span class="roi up">+49% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€60</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€147</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +39pp</span><span class="tag">2.5x</span><span class="tag">gem 65%</span><span class="tag">fee €17</span></div>
+    <div class="note">Viento a favor por el 30 aniversario.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Mew%20AR%20VSTAR%20Universe%20183&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="pikachu ar (151)" data-ev="24" data-roi="52" data-margin="31" data-raw="28" data-psa10="101" data-band="1" data-buy="0">
+  <span class="rank">#12</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Pikachu AR (151)</div></div></div>
+  <div class="body">
+    <div class="name">Pikachu AR (151)</div><div class="set">Pokemon JP · Pokemon 151 (SV2a) #173</div>
+    <div class="evrow"><span class="ev">€24</span><span class="lbl">EV neto</span><span class="roi up">+52% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€28</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€101</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +31pp</span><span class="tag">3.7x</span><span class="tag">gem 60%</span><span class="tag">fee €18</span></div>
+    <div class="note">AR #173/165 de 151 (correccion: NO es de Triplet Beat). Precio aprox.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Pikachu%20AR%20173%20151&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="mega gengar ex rr" data-ev="23" data-roi="84" data-margin="17" data-raw="11" data-psa10="147" data-band="1" data-buy="0">
+  <span class="rank">#13</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Mega Gengar ex RR</div></div></div>
+  <div class="body">
+    <div class="name">Mega Gengar ex RR</div><div class="set">Pokemon JP · MEGA Dream ex</div>
+    <div class="evrow"><span class="ev">€23</span><span class="lbl">EV neto</span><span class="roi up">+84% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€11</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€147</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +17pp</span><span class="tag">13.3x</span><span class="tag">gem 30%</span><span class="tag">fee €17</span></div>
+    <div class="note">Version RR (NO la SAR #230, que vale ~$580). Solo en lote.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Mega%20Gengar%20ex%20double%20rare%20mega%20dream&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="onepiece" data-label="One Piece" data-name="op-01 sr parallel (personaje top)" data-ev="12" data-roi="12" data-margin="6" data-raw="83" data-psa10="276" data-band="2" data-buy="0">
+  <span class="rank">#14</span>
+  <div class="thumb"><div class="ph op"><div class="g">One Piece</div><div class="n">OP-01 SR Parallel (personaje top)</div></div></div>
+  <div class="body">
+    <div class="name">OP-01 SR Parallel (personaje top)</div><div class="set">One Piece · OP-01</div>
+    <div class="evrow"><span class="ev">€12</span><span class="lbl">EV neto</span><span class="roi up">+12% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€83</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€276</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +6pp</span><span class="tag">3.3x</span><span class="tag">gem 20%</span><span class="tag">fee €17</span></div>
+    <div class="note">~2,5x neto con submission en lote.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=One%20Piece%20OP01%20SR%20parallel&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="pokemon_jp" data-label="Pokemon JP" data-name="magikarp ar" data-ev="11" data-roi="25" data-margin="18" data-raw="26" data-psa10="83" data-band="1" data-buy="0">
+  <span class="rank">#15</span>
+  <div class="thumb"><div class="ph pk"><div class="g">Pokemon JP</div><div class="n">Magikarp AR</div></div></div>
+  <div class="body">
+    <div class="name">Magikarp AR</div><div class="set">Pokemon JP · Triplet Beat (SV1a) #080</div>
+    <div class="evrow"><span class="ev">€11</span><span class="lbl">EV neto</span><span class="roi up">+25% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€26</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€83</div></div>
+    </div>
+    <div class="tags"><span class="tag ok">margen +18pp</span><span class="tag">3.2x</span><span class="tag">gem 55%</span><span class="tag">fee €18</span><span class="trend dn" title="cambio de EV desde el dia anterior">▼ €2</span></div>
+    <div class="note">AR #080/073. Real (verificado). Precio aprox: confirma comp.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Magikarp%20AR%20Triplet%20Beat%20080&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+<article class="card" data-game="onepiece" data-label="One Piece" data-name="shanks manga art rare" data-ev="-51" data-roi="-14" data-margin="-22" data-raw="322" data-psa10="506" data-band="3" data-buy="0">
+  <span class="rank">#16</span>
+  <div class="thumb"><div class="ph op"><div class="g">One Piece</div><div class="n">Shanks Manga Art Rare</div></div></div>
+  <div class="body">
+    <div class="name">Shanks Manga Art Rare</div><div class="set">One Piece · OP-01</div>
+    <div class="evrow"><span class="ev">€-51</span><span class="lbl">EV neto</span><span class="roi dn">-14% ROI</span></div>
+    <div class="prices">
+      <div class="pill raw"><div class="l">Raw</div><div class="v">€322</div></div>
+      <div class="pill psa"><div class="l">PSA 10</div><div class="v">€506</div></div>
+    </div>
+    <div class="tags"><span class="tag bad">margen -22pp</span><span class="tag">1.6x</span><span class="tag">gem 12%</span><span class="tag">fee €30</span></div>
+    <div class="note">Iconica, suelo firme.</div>
+    <a class="go" href="https://www.pricecharting.com/search-products?q=Shanks%20Manga%20OP01&amp;type=prices" target="_blank">Ver ficha / foto -></a>
+  </div>
+</article>
+</div>
+<footer>Generado por update.py. Ajusta gem_rate en watchlist.json (GemRate/PSA pop) para afinar el EV. Ejecuta --scan para descubrir nuevas cartas.</footer>
+<script>
+(function(){
+  var q=document.getElementById('q'), sort=document.getElementById('sort'),
+      onlybuy=document.getElementById('onlybuy'), grid=document.getElementById('grid'),
+      count=document.getElementById('count'), games=document.getElementById('games'),
+      bands=document.getElementById('bands'),
+      cards=[].slice.call(grid.querySelectorAll('.card'));
+  var g='', b='0';
+  function num(c,k){return parseFloat(c.getAttribute('data-'+k))||0;}
+  function apply(){
+    var term=(q.value||'').trim().toLowerCase(), shown=0;
+    cards.forEach(function(c){
+      var ok=(!g||c.getAttribute('data-game')===g)
+        && (b==='0'||c.getAttribute('data-band')===b)
+        && (!term||c.getAttribute('data-name').indexOf(term)>=0||(c.getAttribute('data-label')||'').toLowerCase().indexOf(term)>=0)
+        && (!onlybuy.checked||c.getAttribute('data-buy')==='1');
+      c.classList.toggle('hide',!ok); if(ok)shown++;
+    });
+    var k=sort.value, dir=(k==='raw'?1:-1), vis=cards.filter(function(c){return !c.classList.contains('hide');});
+    vis.sort(function(a,b){return (num(a,k)-num(b,k))*dir;});
+    vis.forEach(function(c,i){c.style.order=i; var r=c.querySelector('.rank'); if(r)r.textContent='#'+(i+1);});
+    count.textContent=shown+' / '+cards.length+' cartas';
+  }
+  function wire(box,set){ box.addEventListener('click',function(e){ var ch=e.target.closest('.chip'); if(!ch)return;
+    set(ch); [].forEach.call(box.children,function(x){x.classList.toggle('on',x===ch)}); apply(); }); }
+  q.addEventListener('input',apply); sort.addEventListener('change',apply); onlybuy.addEventListener('change',apply);
+  wire(games,function(ch){g=ch.getAttribute('data-g');});
+  wire(bands,function(ch){b=ch.getAttribute('data-b');});
+  apply();
+})();
+</script>
+</div>

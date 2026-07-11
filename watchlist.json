@@ -1,0 +1,586 @@
+{
+  "config": {
+    "currency": "USD",
+    "recovery_frac": 0.85,
+    "buy_threshold_ev": 30,
+    "display": {
+      "symbol": "€",
+      "fx": 0.92,
+      "_note": "La fuente de verdad (precios/history) esta en USD; esto solo convierte para MOSTRAR. fx = USD->tu moneda (aprox, editable). Para volver a dolares: symbol '$', fx 1.0."
+    },
+    "bands": {
+      "lo": 50,
+      "hi": 100,
+      "_note": "Umbrales de las 3 bandas de precio (en moneda de presentacion): banda 1 = raw < lo, banda 2 = lo-hi, banda 3 = raw >= hi."
+    },
+    "note": "recovery_frac = fraccion del raw que recuperas cuando NO sale 10 (un PSA9 moderno suele rondar el raw). buy_threshold_ev = EV neto minimo en USD para marcar COMPRAR. NOTA jul-2026: PSA pauso su tier Value (estandar ~$79.99); para carta barata usa CGC (~$18). Ajusta grading_fee segun el grader que uses.",
+    "scan": {
+      "sets": [
+        {
+          "game": "onepiece",
+          "code": "OP-08"
+        },
+        {
+          "game": "onepiece",
+          "code": "OP-09"
+        },
+        {
+          "game": "pokemon_jp",
+          "code": "sv8a"
+        },
+        {
+          "game": "pokemon_jp",
+          "code": "sv9a"
+        }
+      ],
+      "min_raw": 5,
+      "max_raw": 400,
+      "min_mult": 3,
+      "min_ev": 40,
+      "autoadd_ev": 120,
+      "max_pages_per_set": 3,
+      "max_candidates": 40,
+      "_note": "sets = codigos a rastrear (ajusta a los que te interesen). El scan filtra por raw dentro de [min_raw,max_raw], multiplicador >= min_mult y EV >= min_ev. Con --autoadd, mete en la watchlist las de EV >= autoadd_ev. Cuidado con el limite de 200 req/dia del tier gratis: cada pagina de set = 1 peticion."
+    }
+  },
+  "cards": [
+    {
+      "id": "chari-vstar-swsh262",
+      "name": "Charizard VStar SWSH262",
+      "game": "pokemon_en",
+      "set": "Promo",
+      "query": "Charizard VSTAR SWSH262",
+      "gem_rate": 0.15,
+      "grading_fee": 25,
+      "seed_raw": 80,
+      "seed_psa10": 1675,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/game/pokemon-promo/charizard-vstar-swsh262",
+      "note": "Loteria: borde negro, gem baja, techo enorme.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 80,
+          "psa10": 1675,
+          "ev": 204
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 80,
+          "psa10": 1675,
+          "ev": 204
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 80,
+          "psa10": 1675,
+          "ev": 204
+        }
+      ]
+    },
+    {
+      "id": "mega-gengar-rr-m2a",
+      "name": "Mega Gengar ex RR",
+      "game": "pokemon_jp",
+      "set": "MEGA Dream ex",
+      "query": "Mega Gengar ex double rare mega dream",
+      "gem_rate": 0.3,
+      "grading_fee": 18,
+      "seed_raw": 12,
+      "seed_psa10": 160,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Mega%20Gengar%20ex%20double%20rare%20mega%20dream&type=prices",
+      "note": "Version RR (NO la SAR #230, que vale ~$580). Solo en lote.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 12,
+          "psa10": 160,
+          "ev": 25
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 12,
+          "psa10": 160,
+          "ev": 25
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 12,
+          "psa10": 160,
+          "ev": 25
+        }
+      ]
+    },
+    {
+      "id": "magikarp-ar-triplet",
+      "name": "Magikarp AR",
+      "game": "pokemon_jp",
+      "set": "Triplet Beat (SV1a) #080",
+      "query": "Magikarp AR Triplet Beat",
+      "gem_rate": 0.55,
+      "grading_fee": 20,
+      "seed_raw": 28,
+      "seed_psa10": 90,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Magikarp%20AR%20Triplet%20Beat%20080&type=prices",
+      "note": "AR #080/073. Real (verificado). Precio aprox: confirma comp.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 28,
+          "psa10": 90,
+          "ev": 14
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 28,
+          "psa10": 90,
+          "ev": 14
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 28,
+          "psa10": 90,
+          "ev": 12
+        }
+      ]
+    },
+    {
+      "id": "sylveon-ex-sar-terastal",
+      "name": "Sylveon ex SAR",
+      "game": "pokemon_jp",
+      "set": "Terastal Festival ex (SV8a) #212",
+      "query": "Sylveon ex SAR Terastal Festival",
+      "gem_rate": 0.7,
+      "grading_fee": 18,
+      "seed_raw": 75,
+      "seed_psa10": 180,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Sylveon%20ex%20SAR%20Terastal%20Festival%20212&type=prices",
+      "note": "Sale de imprenta pronto = suelo de precio.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 75,
+          "psa10": 180,
+          "ev": 52
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 75,
+          "psa10": 180,
+          "ev": 52
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 75,
+          "psa10": 180,
+          "ev": 52
+        }
+      ]
+    },
+    {
+      "id": "mew-ar-vstar-universe",
+      "name": "Mew AR",
+      "game": "pokemon_jp",
+      "set": "VSTAR Universe (s12a) #183",
+      "query": "Mew AR VSTAR Universe",
+      "gem_rate": 0.65,
+      "grading_fee": 18,
+      "seed_raw": 65,
+      "seed_psa10": 160,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Mew%20AR%20VSTAR%20Universe%20183&type=prices",
+      "note": "Viento a favor por el 30 aniversario.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 65,
+          "psa10": 160,
+          "ev": 40
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 65,
+          "psa10": 160,
+          "ev": 40
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 65,
+          "psa10": 160,
+          "ev": 40
+        }
+      ]
+    },
+    {
+      "id": "op01-sr-parallel-top",
+      "name": "OP-01 SR Parallel (personaje top)",
+      "game": "onepiece",
+      "set": "OP-01",
+      "query": "One Piece OP01 SR parallel",
+      "gem_rate": 0.2,
+      "grading_fee": 18,
+      "seed_raw": 90,
+      "seed_psa10": 300,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=One%20Piece%20OP01%20SR%20parallel&type=prices",
+      "note": "~2,5x neto con submission en lote.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 90,
+          "psa10": 300,
+          "ev": 13
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 90,
+          "psa10": 300,
+          "ev": 13
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 90,
+          "psa10": 300,
+          "ev": 13
+        }
+      ]
+    },
+    {
+      "id": "chari-ex-sar-134-rbf",
+      "name": "Charizard ex SAR #134",
+      "game": "pokemon_jp",
+      "set": "Ruler of Black Flame",
+      "query": "Charizard ex SAR 134 Ruler Black Flame",
+      "gem_rate": 0.89,
+      "grading_fee": 25,
+      "seed_raw": 150,
+      "seed_psa10": 415,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/game/pokemon-japanese-ruler-of-the-black-flame/charizard-ex-134",
+      "note": "89% gem, muy liquida. La mas fiable.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 150,
+          "psa10": 415,
+          "ev": 208
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 150,
+          "psa10": 415,
+          "ev": 208
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 150,
+          "psa10": 415,
+          "ev": 208
+        }
+      ]
+    },
+    {
+      "id": "chari-ex-sar-151",
+      "name": "Charizard ex SAR (151)",
+      "game": "pokemon_jp",
+      "set": "Pokemon 151 (SV2a) #201",
+      "query": "Charizard ex SAR 151",
+      "gem_rate": 0.8,
+      "grading_fee": 50,
+      "seed_raw": 450,
+      "seed_psa10": 900,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/game/pokemon-japanese-scarlet-&-violet-151/charizard-ex-201",
+      "note": "SAR #201/165. Raw ~$450, PSA10 ~$900 (verificado).",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 283,
+          "psa10": 491,
+          "ev": 125
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 283,
+          "psa10": 491,
+          "ev": 125
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 450,
+          "psa10": 900,
+          "ev": 296
+        }
+      ]
+    },
+    {
+      "id": "pikachu-ex-sar-seb",
+      "name": "Pikachu ex SAR",
+      "game": "pokemon_jp",
+      "set": "Super Electric Breaker",
+      "query": "Pikachu ex SAR Super Electric Breaker",
+      "gem_rate": 0.9,
+      "grading_fee": 25,
+      "seed_raw": 125,
+      "seed_psa10": 300,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Pikachu%20ex%20SAR%20Super%20Electric%20Breaker&type=prices",
+      "note": "~90% gem, la mas fiable del mercado.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 125,
+          "psa10": 300,
+          "ev": 131
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 125,
+          "psa10": 300,
+          "ev": 131
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 125,
+          "psa10": 300,
+          "ev": 131
+        }
+      ]
+    },
+    {
+      "id": "nanjamo-sar-clayburst",
+      "name": "Nanjamo (Iono) SAR",
+      "game": "pokemon_jp",
+      "set": "Clay Burst (SV2D) #96",
+      "query": "Nanjamo SAR Clay Burst",
+      "gem_rate": 0.58,
+      "grading_fee": 50,
+      "seed_raw": 314,
+      "seed_psa10": 679,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/game/pokemon-japanese-clay-burst/iono-96",
+      "note": "+116% ROI pero solo 58% gem = riesgo.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 314,
+          "psa10": 679,
+          "ev": 159
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 314,
+          "psa10": 679,
+          "ev": 159
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 314,
+          "psa10": 679,
+          "ev": 142
+        }
+      ]
+    },
+    {
+      "id": "mega-charizard-x-sar-infernox",
+      "name": "Mega Charizard X ex SAR",
+      "game": "pokemon_jp",
+      "set": "Inferno X",
+      "query": "Mega Charizard X ex SAR Inferno X",
+      "gem_rate": 0.85,
+      "grading_fee": 50,
+      "seed_raw": 500,
+      "seed_psa10": 830,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Mega%20Charizard%20X%20ex%20SAR%20Inferno%20X&type=prices",
+      "note": "Mayor ganancia absoluta por carta (+$327).",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 500,
+          "psa10": 830,
+          "ev": 219
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 500,
+          "psa10": 830,
+          "ev": 219
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 500,
+          "psa10": 830,
+          "ev": 219
+        }
+      ]
+    },
+    {
+      "id": "nami-alt-art-op01-016",
+      "name": "Nami [Alternate Art] OP01-016",
+      "game": "onepiece",
+      "set": "Romance Dawn",
+      "query": "Nami Alternate Art OP01-016",
+      "gem_rate": 0.12,
+      "grading_fee": 18,
+      "seed_raw": 97,
+      "seed_psa10": 2394,
+      "image_url": "https://storage.googleapis.com/images.pricecharting.com/u54yowm3lqofy2ox/240.jpg",
+      "link": "https://www.pricecharting.com/game/one-piece-romance-dawn/nami-alternate-art-op01-016",
+      "note": "OJO: el PSA10 esta inflado por copias pre-errata. Verifica variante.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 97,
+          "psa10": 2394,
+          "ev": 245
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 97,
+          "psa10": 2394,
+          "ev": 245
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 97,
+          "psa10": 2394,
+          "ev": 245
+        }
+      ]
+    },
+    {
+      "id": "zoro-manga-op01",
+      "name": "Zoro Manga Art Rare",
+      "game": "onepiece",
+      "set": "OP-01",
+      "query": "Zoro Manga OP01",
+      "gem_rate": 0.1,
+      "grading_fee": 25,
+      "seed_raw": 225,
+      "seed_psa10": 1200,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Zoro%20Manga%20OP01&type=prices",
+      "note": "Textura que se raya, variance alta.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 225,
+          "psa10": 1200,
+          "ev": 42
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 225,
+          "psa10": 1200,
+          "ev": 42
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 225,
+          "psa10": 1200,
+          "ev": 42
+        }
+      ]
+    },
+    {
+      "id": "luffy-manga-op01",
+      "name": "Luffy Manga Art Rare",
+      "game": "onepiece",
+      "set": "OP-01",
+      "query": "Luffy Manga OP01",
+      "gem_rate": 0.1,
+      "grading_fee": 33,
+      "seed_raw": 300,
+      "seed_psa10": 1500,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Luffy%20Manga%20OP01&type=prices",
+      "note": "Chase, vende en dias en PSA 10.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 300,
+          "psa10": 1500,
+          "ev": 46
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 300,
+          "psa10": 1500,
+          "ev": 46
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 300,
+          "psa10": 1500,
+          "ev": 46
+        }
+      ]
+    },
+    {
+      "id": "shanks-manga-op01",
+      "name": "Shanks Manga Art Rare",
+      "game": "onepiece",
+      "set": "OP-01",
+      "query": "Shanks Manga OP01",
+      "gem_rate": 0.12,
+      "grading_fee": 33,
+      "seed_raw": 350,
+      "seed_psa10": 550,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Shanks%20Manga%20OP01&type=prices",
+      "note": "Iconica, suelo firme.",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "raw": 350,
+          "psa10": 550,
+          "ev": -55
+        },
+        {
+          "date": "2026-07-10",
+          "raw": 350,
+          "psa10": 550,
+          "ev": -55
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 350,
+          "psa10": 550,
+          "ev": -55
+        }
+      ]
+    },
+    {
+      "id": "pikachu-ar-151",
+      "name": "Pikachu AR (151)",
+      "game": "pokemon_jp",
+      "set": "Pokemon 151 (SV2a) #173",
+      "query": "Pikachu AR 173 151",
+      "gem_rate": 0.6,
+      "grading_fee": 20,
+      "seed_raw": 30,
+      "seed_psa10": 110,
+      "image_url": null,
+      "link": "https://www.pricecharting.com/search-products?q=Pikachu%20AR%20173%20151&type=prices",
+      "note": "AR #173/165 de 151 (correccion: NO es de Triplet Beat). Precio aprox.",
+      "history": [
+        {
+          "date": "2026-07-10",
+          "raw": 30,
+          "psa10": 110,
+          "ev": 26
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 30,
+          "psa10": 110,
+          "ev": 26
+        }
+      ]
+    }
+  ]
+}
