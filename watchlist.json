@@ -17,18 +17,6 @@
     "scan": {
       "sets": [
         {
-          "game": "onepiece",
-          "code": "onepiece--two-legends"
-        },
-        {
-          "game": "onepiece",
-          "code": "onepiece--wings-of-the-captain"
-        },
-        {
-          "game": "onepiece",
-          "code": "onepiece--500-years-in-the-future"
-        },
-        {
           "game": "pokemon_jp",
           "code": "pokemon-jp--m2a-high-class-pack-mega-dream-ex"
         }
@@ -42,7 +30,8 @@
       "max_candidates": 40,
       "_note": "sets = codigos a rastrear (ajusta a los que te interesen). El scan filtra por raw dentro de [min_raw,max_raw], multiplicador >= min_mult y EV >= min_ev. Con --autoadd, mete en la watchlist las de EV >= autoadd_ev. Cuidado con el limite de 200 req/dia del tier gratis: cada pagina de set = 1 peticion.",
       "_note_estimacion": "En tier gratis (sin PSA10) el scan estima el PSA10 por rareza (PSA10_MULT_DEFAULTS en update.py) y marca la candidata como estimada. Con min_mult<=2.5 salen tambien las SAR japonesas.",
-      "_note_slugs": "code = slug real de la API (ej. onepiece--two-legends). Encuentralos con: python3 update.py --list-sets onepiece"
+      "_note_slugs": "code = slug real de la API (ej. onepiece--two-legends). Encuentralos con: python3 update.py --list-sets onepiece",
+      "_note_onepiece": "One Piece: en tier gratis (PSA10 estimado) su gem ~10% deja el EV bajo el minimo y no salen candidatas; anade sets de Pokemon JP (SAR gem alto) via --list-sets pokemon_jp."
     }
   },
   "cards": [
@@ -417,7 +406,7 @@
       "name": "Nanjamo (Iono) SAR",
       "game": "pokemon_jp",
       "set": "Clay Burst (SV2D) #96",
-      "query": "Nanjamo SAR Clay Burst",
+      "query": "Iono SAR Clay Burst",
       "gem_rate": 0.58,
       "grading_fee": 50,
       "seed_raw": 314,

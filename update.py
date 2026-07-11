@@ -283,10 +283,16 @@ def refresh(data, dry_run):
                 c["link"] = live["url"]
             c.pop("unverified", None)
         elif not dry_run and api_key:
-            # habia clave pero no hubo match fiable: dejamos el seed y avisamos (sin corromper)
+            # habia clave pero no hubo match fiable: dejamos el seed (sin corromper).
+            # Solo marcamos REVISAR si la carta TIENE numero y aun asi no aparece (posible
+            # ficha fantasma); si no tiene numero, no se puede verificar y no es culpa suya.
             c.pop("live_raw", None); c.pop("live_psa10", None)
-            c["unverified"] = True
-            print(f"  ? sin match fiable: '{c['name']}' ({c.get('set','')}) - mantengo seed")
+            has_num = num_primary(card_number(c.get("set"), c.get("query"), c.get("name")))
+            if has_num:
+                c["unverified"] = True
+                print(f"  ? tiene #{has_num} pero no casa en API: revisa '{c['name']}'")
+            else:
+                c.pop("unverified", None)
         else:
             # sin clave (o dry-run) no se puede verificar: no marcamos REVISAR
             c.pop("unverified", None)
