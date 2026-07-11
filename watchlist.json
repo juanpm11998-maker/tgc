@@ -72,9 +72,15 @@
           "raw": 80,
           "psa10": 1675,
           "ev": 204
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 80,
+          "psa10": 1675,
+          "ev": 204
         }
       ],
-      "live_raw": 89.68
+      "unverified": true
     },
     {
       "id": "mega-gengar-rr-m2a",
@@ -113,8 +119,15 @@
           "raw": 12,
           "psa10": 160,
           "ev": 25
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 12,
+          "psa10": 160,
+          "ev": 25
         }
-      ]
+      ],
+      "unverified": true
     },
     {
       "id": "magikarp-ar-triplet",
@@ -153,9 +166,15 @@
           "raw": 28,
           "psa10": 90,
           "ev": 12
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 28,
+          "psa10": 90,
+          "ev": 12
         }
       ],
-      "live_raw": 0.43
+      "unverified": true
     },
     {
       "id": "sylveon-ex-sar-terastal",
@@ -194,9 +213,15 @@
           "raw": 75,
           "psa10": 180,
           "ev": 52
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 75,
+          "psa10": 180,
+          "ev": 52
         }
       ],
-      "live_raw": 2.33
+      "unverified": true
     },
     {
       "id": "mew-ar-vstar-universe",
@@ -235,8 +260,15 @@
           "raw": 65,
           "psa10": 160,
           "ev": 40
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 65,
+          "psa10": 160,
+          "ev": 40
         }
-      ]
+      ],
+      "unverified": true
     },
     {
       "id": "op01-sr-parallel-top",
@@ -275,9 +307,15 @@
           "raw": 90,
           "psa10": 300,
           "ev": 13
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 90,
+          "psa10": 300,
+          "ev": 13
         }
       ],
-      "live_raw": 0.27
+      "unverified": true
     },
     {
       "id": "chari-ex-sar-134-rbf",
@@ -316,9 +354,15 @@
           "raw": 150,
           "psa10": 415,
           "ev": 208
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 150,
+          "psa10": 415,
+          "ev": 208
         }
       ],
-      "live_raw": 146.17
+      "unverified": true
     },
     {
       "id": "chari-ex-sar-151",
@@ -357,9 +401,15 @@
           "raw": 450,
           "psa10": 900,
           "ev": 296
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 450,
+          "psa10": 900,
+          "ev": 296
         }
       ],
-      "live_raw": 9.52
+      "unverified": true
     },
     {
       "id": "pikachu-ex-sar-seb",
@@ -398,8 +448,15 @@
           "raw": 125,
           "psa10": 300,
           "ev": 131
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 125,
+          "psa10": 300,
+          "ev": 131
         }
-      ]
+      ],
+      "unverified": true
     },
     {
       "id": "nanjamo-sar-clayburst",
@@ -438,8 +495,15 @@
           "raw": 314,
           "psa10": 679,
           "ev": 142
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 314,
+          "psa10": 679,
+          "ev": 142
         }
-      ]
+      ],
+      "unverified": true
     },
     {
       "id": "mega-charizard-x-sar-infernox",
@@ -478,9 +542,15 @@
           "raw": 500,
           "psa10": 830,
           "ev": 219
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 500,
+          "psa10": 830,
+          "ev": 219
         }
       ],
-      "live_raw": 44.53
+      "unverified": true
     },
     {
       "id": "nami-alt-art-op01-016",
@@ -519,9 +589,15 @@
           "raw": 97,
           "psa10": 2394,
           "ev": 245
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 97,
+          "psa10": 2394,
+          "ev": 245
         }
       ],
-      "live_raw": 108.74
+      "unverified": true
     },
     {
       "id": "zoro-manga-op01",
@@ -560,9 +636,15 @@
           "raw": 225,
           "psa10": 1200,
           "ev": 42
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 225,
+          "psa10": 1200,
+          "ev": 42
         }
       ],
-      "live_raw": 1750.0
+      "unverified": true
     },
     {
       "id": "luffy-manga-op01",
@@ -601,9 +683,15 @@
           "raw": 300,
           "psa10": 1500,
           "ev": 46
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 300,
+          "psa10": 1500,
+          "ev": 46
         }
       ],
-      "live_raw": 1416.64
+      "unverified": true
     },
     {
       "id": "shanks-manga-op01",
@@ -642,9 +730,15 @@
           "raw": 350,
           "psa10": 550,
           "ev": -55
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 350,
+          "psa10": 550,
+          "ev": -55
         }
       ],
-      "live_raw": 1249.99
+      "unverified": true
     },
     {
       "id": "pikachu-ar-151",
@@ -677,9 +771,15 @@
           "raw": 30,
           "psa10": 110,
           "ev": 26
+        },
+        {
+          "date": "2026-07-11",
+          "raw": 30,
+          "psa10": 110,
+          "ev": 26
         }
       ],
-      "live_raw": 36.49
+      "unverified": true
     }
   ]
 }
