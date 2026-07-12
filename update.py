@@ -207,8 +207,9 @@ def fetch_live(card, api_key):
         return None
     game = game_meta(card["game"])["api"]
     q = urllib.parse.quote(card.get("query") or card["name"])
-    url = f"{API_BASE}/cards/search?game={game}&q={q}&limit=25"
-    target = num_primary(card_number(card.get("set"), card.get("query"), card.get("name")))
+    url = f"{API_BASE}/cards/search?game={game}&q={q}&limit=100"
+    # numero objetivo: campo 'number' explicito si existe; si no, se extrae del set/nombre
+    target = num_primary(card.get("number") or card_number(card.get("set"), card.get("query"), card.get("name")))
     try:
         data = http_json(url, headers={"X-API-Key": api_key})
         items = [parse_item(x) for x in items_from(data)]
@@ -287,7 +288,7 @@ def refresh(data, dry_run):
             # Solo marcamos REVISAR si la carta TIENE numero y aun asi no aparece (posible
             # ficha fantasma); si no tiene numero, no se puede verificar y no es culpa suya.
             c.pop("live_raw", None); c.pop("live_psa10", None)
-            has_num = num_primary(card_number(c.get("set"), c.get("query"), c.get("name")))
+            has_num = num_primary(c.get("number") or card_number(c.get("set"), c.get("query"), c.get("name")))
             if has_num:
                 c["unverified"] = True
                 print(f"  ? tiene #{has_num} pero no casa en API: revisa '{c['name']}'")
@@ -302,7 +303,11 @@ def refresh(data, dry_run):
         hist = c.setdefault("history", [])
         if not hist or hist[-1].get("date") != today:
             hist.append({"date": today, "raw": m["raw"], "psa10": m["psa10"], "ev": m["ev"]})
-            c["history"] = hist[-90:]
+        # dedup por fecha (los merges pueden dejar duplicados): una entrada por dia, ordenada
+        by_date = {}
+        for h in hist:
+            by_date[h.get("date")] = h
+        c["history"] = [by_date[d] for d in sorted(by_date)][-90:]
         c["_m"] = m
     return data
 
