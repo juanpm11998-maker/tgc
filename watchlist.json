@@ -125,7 +125,7 @@
       "grading_fee": 20,
       "seed_raw": 28,
       "seed_psa10": 90,
-      "image_url": "https://cdn.tcgpricelookup.com/cards/aea49136b8cbbd37.webp",
+      "image_url": "https://cdn.tcgpricelookup.com/cards/9bdbf68f9cc81066.webp",
       "link": "https://www.pricecharting.com/game/pokemon-japanese-triplet-beat/magikarp-80",
       "note": "AR #080/073. Real (verificado). Precio aprox: confirma comp.",
       "history": [
@@ -233,7 +233,8 @@
           "psa10": 160,
           "ev": 40
         }
-      ]
+      ],
+      "unverified": true
     },
     {
       "id": "op01-sr-parallel-top",
@@ -365,7 +366,7 @@
       "grading_fee": 25,
       "seed_raw": 125,
       "seed_psa10": 300,
-      "image_url": null,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/d9a78f0d1518f936.webp",
       "link": "https://www.pricecharting.com/search-products?q=Pikachu%20ex%20SAR%20Super%20Electric%20Breaker&type=prices",
       "note": "SAR #132/106 (verificado; #122 es SR full art, #136 el dorado UR). ~90% gem.",
       "history": [
@@ -434,7 +435,8 @@
           "psa10": 679,
           "ev": 142
         }
-      ]
+      ],
+      "unverified": true
     },
     {
       "id": "mega-charizard-x-sar-infernox",
@@ -446,7 +448,7 @@
       "grading_fee": 50,
       "seed_raw": 500,
       "seed_psa10": 830,
-      "image_url": "https://cdn.tcgpricelookup.com/cards/a954a75e9d2754c4.webp",
+      "image_url": "https://cdn.tcgpricelookup.com/cards/affb990332511826.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Charizard%20X%20ex%20SAR%20Inferno%20X&type=prices",
       "note": "SAR #110/080 (verificado; #094 SR, #013 RR, #116 dorado). Mayor ganancia por carta.",
       "history": [
