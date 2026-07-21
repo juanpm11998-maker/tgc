@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-20",
+  "generated": "2026-07-21",
   "candidates": [
     {
       "id": "megadragoniteex246193",
@@ -21,7 +21,7 @@
       "margin": 63,
       "image_url": "https://cdn.tcgpricelookup.com/cards/1db33592a4a91646.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Dragonite%20ex%20-%20246/193&type=prices",
-      "is_new": true
+      "is_new": false
     },
     {
       "id": "megadragoniteex250193",
@@ -87,7 +87,7 @@
       "margin": 52,
       "image_url": "https://cdn.tcgpricelookup.com/cards/ad6cd02625c43ab0.webp",
       "link": "https://www.pricecharting.com/search-products?q=N%27s%20Zoroark%20ex%20-%20242/193&type=prices",
-      "is_new": true
+      "is_new": false
     }
   ]
 }
