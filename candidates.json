@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-02",
+  "generated": "2026-08-03",
   "candidates": [
     {
       "id": "pikachuex234193",
@@ -21,7 +21,7 @@
       "margin": 64,
       "image_url": "https://cdn.tcgpricelookup.com/cards/2df3e758142ffe07.webp",
       "link": "https://www.pricecharting.com/search-products?q=Pikachu%20ex%20-%20234/193&type=prices",
-      "is_new": true
+      "is_new": false
     },
     {
       "id": "megadragoniteex246193",
@@ -109,7 +109,7 @@
       "margin": 52,
       "image_url": "https://cdn.tcgpricelookup.com/cards/ad6cd02625c43ab0.webp",
       "link": "https://www.pricecharting.com/search-products?q=N%27s%20Zoroark%20ex%20-%20242/193&type=prices",
-      "is_new": true
+      "is_new": false
     }
   ]
 }
