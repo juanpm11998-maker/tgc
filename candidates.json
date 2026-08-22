@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-21",
+  "generated": "2026-08-22",
   "candidates": [
     {
       "id": "megadragoniteex246193",
@@ -52,16 +52,16 @@
       "set": "M2a: High Class Pack: MEGA Dream ex",
       "rarity": "Special Art Rare",
       "code": "237/193",
-      "raw": 170.22,
-      "psa10": 425.55,
-      "gap": 255,
+      "raw": 168.44,
+      "psa10": 421.1,
+      "gap": 253,
       "mult": 2.5,
       "gem_est": 0.8,
       "fee": 25,
-      "ev": 174,
+      "ev": 172,
       "psa10_est": true,
       "roi": 89,
-      "gem_be": 0.1799204594410798,
+      "gem_be": 0.18086109252103078,
       "margin": 62,
       "image_url": "https://cdn.tcgpricelookup.com/cards/1b7e4797dd718dc5.webp",
       "link": "https://www.pricecharting.com/search-products?q=Team%20Rocket%27s%20Mewtwo%20ex%20-%20237/193&type=prices",
@@ -87,7 +87,7 @@
       "margin": 51,
       "image_url": "https://cdn.tcgpricelookup.com/cards/ad6cd02625c43ab0.webp",
       "link": "https://www.pricecharting.com/search-products?q=N%27s%20Zoroark%20ex%20-%20242/193&type=prices",
-      "is_new": true
+      "is_new": false
     }
   ]
 }
