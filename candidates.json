@@ -1,6 +1,28 @@
 {
-  "generated": "2026-08-31",
+  "generated": "2026-09-01",
   "candidates": [
+    {
+      "id": "megagengarex240193",
+      "name": "Mega Gengar ex - 240/193",
+      "game": "pokemon_jp",
+      "set": "M2a: High Class Pack: MEGA Dream ex",
+      "rarity": "Special Art Rare",
+      "code": "240/193",
+      "raw": 384.67,
+      "psa10": 961.68,
+      "gap": 577,
+      "mult": 2.5,
+      "gem_est": 0.8,
+      "fee": 33,
+      "ev": 417,
+      "psa10_est": true,
+      "roi": 100,
+      "gem_be": 0.14290058223394764,
+      "margin": 66,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/994b9aa731fc07e4.webp",
+      "link": "https://www.pricecharting.com/search-products?q=Mega%20Gengar%20ex%20-%20240/193&type=prices",
+      "is_new": true
+    },
     {
       "id": "megadragoniteex250193",
       "name": "Mega Dragonite ex - 250/193",
