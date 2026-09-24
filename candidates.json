@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23",
+  "generated": "2026-09-24",
   "candidates": [
     {
       "id": "pikachuex234193",
@@ -21,7 +21,7 @@
       "margin": 63,
       "image_url": "https://cdn.tcgpricelookup.com/cards/2df3e758142ffe07.webp",
       "link": "https://www.pricecharting.com/search-products?q=Pikachu%20ex%20-%20234/193&type=prices",
-      "is_new": true
+      "is_new": false
     },
     {
       "id": "megadragoniteex250193",
@@ -30,16 +30,16 @@
       "set": "M2a: High Class Pack: MEGA Dream ex",
       "rarity": "Mega Ultra Rare",
       "code": "250/193",
-      "raw": 197.47,
-      "psa10": 513.42,
-      "gap": 316,
+      "raw": 192.43,
+      "psa10": 500.32,
+      "gap": 308,
       "mult": 2.6,
       "gem_est": 0.78,
       "fee": 33,
-      "ev": 207,
+      "ev": 201,
       "psa10_est": true,
-      "roi": 90,
-      "gem_be": 0.1812090441747777,
+      "roi": 89,
+      "gem_be": 0.18370801281051924,
       "margin": 60,
       "image_url": "https://cdn.tcgpricelookup.com/cards/ab56ec9390e91d35.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Dragonite%20ex%20-%20250/193&type=prices",
