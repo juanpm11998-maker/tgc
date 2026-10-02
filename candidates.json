@@ -1,28 +1,6 @@
 {
-  "generated": "2026-10-01",
+  "generated": "2026-10-02",
   "candidates": [
-    {
-      "id": "megagengarex240193",
-      "name": "Mega Gengar ex - 240/193",
-      "game": "pokemon_jp",
-      "set": "M2a: High Class Pack: MEGA Dream ex",
-      "rarity": "Special Art Rare",
-      "code": "240/193",
-      "raw": 352.15,
-      "psa10": 880.38,
-      "gap": 528,
-      "mult": 2.5,
-      "gem_est": 0.8,
-      "fee": 33,
-      "ev": 379,
-      "psa10_est": true,
-      "roi": 98,
-      "gem_be": 0.14770179975131337,
-      "margin": 65,
-      "image_url": "https://cdn.tcgpricelookup.com/cards/994b9aa731fc07e4.webp",
-      "link": "https://www.pricecharting.com/search-products?q=Mega%20Gengar%20ex%20-%20240/193&type=prices",
-      "is_new": false
-    },
     {
       "id": "pikachuex234193",
       "name": "Pikachu ex - 234/193",
