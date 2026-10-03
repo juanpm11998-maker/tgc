@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-02",
+  "generated": "2026-10-03",
   "candidates": [
     {
       "id": "pikachuex234193",
@@ -52,17 +52,17 @@
       "set": "M2a: High Class Pack: MEGA Dream ex",
       "rarity": "Special Art Rare",
       "code": "246/193",
-      "raw": 181.26,
-      "psa10": 453.15,
-      "gap": 272,
+      "raw": 177.68,
+      "psa10": 444.2,
+      "gap": 267,
       "mult": 2.5,
       "gem_est": 0.8,
       "fee": 25,
-      "ev": 187,
+      "ev": 183,
       "psa10_est": true,
-      "roi": 91,
-      "gem_be": 0.17449904540271974,
-      "margin": 63,
+      "roi": 90,
+      "gem_be": 0.17618326443180113,
+      "margin": 62,
       "image_url": "https://cdn.tcgpricelookup.com/cards/1db33592a4a91646.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Dragonite%20ex%20-%20246/193&type=prices",
       "is_new": false
