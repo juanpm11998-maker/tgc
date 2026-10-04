@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-03",
+  "generated": "2026-10-04",
   "candidates": [
     {
       "id": "pikachuex234193",
@@ -74,17 +74,17 @@
       "set": "M2a: High Class Pack: MEGA Dream ex",
       "rarity": "Special Art Rare",
       "code": "242/193",
-      "raw": 68.01,
-      "psa10": 170.03,
-      "gap": 102,
+      "raw": 66.5,
+      "psa10": 166.25,
+      "gap": 100,
       "mult": 2.5,
       "gem_est": 0.8,
       "fee": 25,
-      "ev": 55,
+      "ev": 53,
       "psa10_est": true,
-      "roi": 59,
-      "gem_be": 0.3136787513979051,
-      "margin": 49,
+      "roi": 58,
+      "gem_be": 0.31875142401458195,
+      "margin": 48,
       "image_url": "https://cdn.tcgpricelookup.com/cards/ad6cd02625c43ab0.webp",
       "link": "https://www.pricecharting.com/search-products?q=N%27s%20Zoroark%20ex%20-%20242/193&type=prices",
       "is_new": false
