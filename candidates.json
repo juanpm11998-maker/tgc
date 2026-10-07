@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-06",
+  "generated": "2026-10-07",
   "candidates": [
     {
       "id": "pikachuex234193",
@@ -46,26 +46,26 @@
       "is_new": false
     },
     {
-      "id": "megadragoniteex246193",
-      "name": "Mega Dragonite ex - 246/193",
+      "id": "teamrocketsmewtwoex237193",
+      "name": "Team Rocket's Mewtwo ex - 237/193",
       "game": "pokemon_jp",
       "set": "M2a: High Class Pack: MEGA Dream ex",
       "rarity": "Special Art Rare",
-      "code": "246/193",
-      "raw": 176.14,
-      "psa10": 440.35,
-      "gap": 264,
+      "code": "237/193",
+      "raw": 128.15,
+      "psa10": 320.38,
+      "gap": 192,
       "mult": 2.5,
       "gem_est": 0.8,
       "fee": 25,
-      "ev": 181,
+      "ev": 125,
       "psa10_est": true,
-      "roi": 90,
-      "gem_be": 0.17692882039424562,
-      "margin": 62,
-      "image_url": "https://cdn.tcgpricelookup.com/cards/1db33592a4a91646.webp",
-      "link": "https://www.pricecharting.com/search-products?q=Mega%20Dragonite%20ex%20-%20246/193&type=prices",
-      "is_new": false
+      "roi": 82,
+      "gem_be": 0.20913680377389723,
+      "margin": 59,
+      "image_url": "https://cdn.tcgpricelookup.com/cards/1b7e4797dd718dc5.webp",
+      "link": "https://www.pricecharting.com/search-products?q=Team%20Rocket%27s%20Mewtwo%20ex%20-%20237/193&type=prices",
+      "is_new": true
     }
   ]
 }
