@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-01",
+  "generated": "2026-11-02",
   "candidates": [
     {
       "id": "megagengarex240193",
@@ -43,7 +43,7 @@
       "margin": 62,
       "image_url": "https://cdn.tcgpricelookup.com/cards/2df3e758142ffe07.webp",
       "link": "https://www.pricecharting.com/search-products?q=Pikachu%20ex%20-%20234/193&type=prices",
-      "is_new": true
+      "is_new": false
     },
     {
       "id": "megadragoniteex250193",
@@ -87,7 +87,7 @@
       "margin": 61,
       "image_url": "https://cdn.tcgpricelookup.com/cards/1db33592a4a91646.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Dragonite%20ex%20-%20246/193&type=prices",
-      "is_new": true
+      "is_new": false
     },
     {
       "id": "teamrocketsmewtwoex237193",
@@ -109,7 +109,7 @@
       "margin": 56,
       "image_url": "https://cdn.tcgpricelookup.com/cards/1b7e4797dd718dc5.webp",
       "link": "https://www.pricecharting.com/search-products?q=Team%20Rocket%27s%20Mewtwo%20ex%20-%20237/193&type=prices",
-      "is_new": true
+      "is_new": false
     }
   ]
 }
