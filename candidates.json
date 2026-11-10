@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-09",
+  "generated": "2026-11-10",
   "candidates": [
     {
       "id": "megagengarex240193",
@@ -21,7 +21,7 @@
       "margin": 63,
       "image_url": "https://cdn.tcgpricelookup.com/cards/994b9aa731fc07e4.webp",
       "link": "https://www.pricecharting.com/search-products?q=Mega%20Gengar%20ex%20-%20240/193&type=prices",
-      "is_new": true
+      "is_new": false
     },
     {
       "id": "pikachuex234193",
@@ -87,7 +87,7 @@
       "margin": 54,
       "image_url": "https://cdn.tcgpricelookup.com/cards/1b7e4797dd718dc5.webp",
       "link": "https://www.pricecharting.com/search-products?q=Team%20Rocket%27s%20Mewtwo%20ex%20-%20237/193&type=prices",
-      "is_new": true
+      "is_new": false
     }
   ]
 }
